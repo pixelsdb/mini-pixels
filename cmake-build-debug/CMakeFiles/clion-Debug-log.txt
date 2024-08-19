@@ -1,0 +1,20 @@
+/home/whz/.cache/JetBrains/RemoteDev/dist/709c809cd569c_CLion-2024.2/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/whz/.cache/JetBrains/RemoteDev/dist/709c809cd569c_CLion-2024.2/bin/ninja/linux/x64/ninja -G Ninja -S /home/whz/mini-pixels -B /home/whz/mini-pixels/cmake-build-debug
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4")
+CMake Error at pixels-common/CMakeLists.txt:45 (message):
+  You must set PIXELS_SRC environment variable.  The value should be set to
+  the Pixels base directory.
+
+
+-- Configuring incomplete, errors occurred!
