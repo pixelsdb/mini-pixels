@@ -1,0 +1,3 @@
+/home/whz/mini-pixels/cmake-build-debug/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+/home/whz/mini-pixels/cmake-build-debug/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
+/home/whz/mini-pixels/cmake-build-debug/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir
