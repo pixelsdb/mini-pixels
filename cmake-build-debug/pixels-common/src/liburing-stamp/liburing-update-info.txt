@@ -1,7 +1,0 @@
-# This is a generated file and its contents are an internal implementation detail.
-# The patch step will be re-executed if anything in this file changes.
-# No other meaning or use of this file is supported.
-
-command (connected)=/home/whz/.cache/JetBrains/RemoteDev/dist/709c809cd569c_CLion-2024.2/bin/cmake/linux/x64/bin/cmake;-Dcan_fetch=YES;-P;/home/whz/mini-pixels/cmake-build-debug/pixels-common/tmp/liburing-gitupdate.cmake
-command (disconnected)=/home/whz/.cache/JetBrains/RemoteDev/dist/709c809cd569c_CLion-2024.2/bin/cmake/linux/x64/bin/cmake;-Dcan_fetch=NO;-P;/home/whz/mini-pixels/cmake-build-debug/pixels-common/tmp/liburing-gitupdate.cmake
-work_dir=/home/whz/mini-pixels/cmake-build-debug/pixels-common/liburing
