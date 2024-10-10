@@ -7,6 +7,9 @@ set(EXTENSION_NAME ${TARGET_NAME}_extension)
 project(${TARGET_NAME})
 include_directories(include)
 
+set(ENV{PIXELS_SRC} ${CMAKE_SOURCE_DIR})
+set(ENV{PIXELS_HOME} ${CMAKE_BINARY_DIR})
+
 set(EXTENSION_SOURCES
         pixels_extension.cpp
         PixelsScanFunction.cpp
