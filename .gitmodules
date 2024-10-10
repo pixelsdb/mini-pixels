@@ -1,7 +1,7 @@
-[submodule "pixels-duckdb"]
-	path = pixels-duckdb
-	url = git@github.com:yuly16/duckdb.git
 [submodule "third-party/protobuf"]
 	path = third-party/protobuf
 	url = git@github.com:protocolbuffers/protobuf.git
 	branch = 21.x
+[submodule "pixels-duckdb"]
+	path = pixels-duckdb
+	url = git@github.com:pixelsdb/duckdb.git
