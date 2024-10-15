@@ -1,6 +1,6 @@
 # mini-pixels
 
-mini-pixels 是 [Pixels](https://github.com/pixelsdb/pixels) 的简化版，旨在为OLAP数据库内核的教学提供实验框架。mini-pixels 保留了 Pixels 存储和查询的核心功能，基本代码来自于[Pixels C++实现](https://github.com/pixelsdb/pixels/tree/master/cpp)。
+mini-pixels 是 [pixels](https://github.com/pixelsdb/pixels) 的简化版，旨在为OLAP数据库内核的教学提供实验框架。mini-pixels 保留了 Pixels 存储和查询的核心功能，基本代码来自于[pixels C++实现](https://github.com/pixelsdb/pixels/tree/master/cpp)。
 
 ## 代码结构
 
@@ -28,10 +28,10 @@ mini-pixels 目前用于中国人民大学 **实用数据库开发** 课程的�
 | 实验1    | 部署mini-pixels环境并进行TPCH测试 | 2024-10-15   | 2024-10-29   | 熟悉如何部署`mini-pixels`开发环境                |
 | 实验2    | 列式数据存储                   | 待定         | 待定         | 熟悉列式存储的设计和实现，完善mini-pixels中的数据类型和编码压缩。 |
 
-如果在实验过程中遇到问题可以提交 Issue。
+如果在实验过程中遇到问题可以在 Discussions 中讨论或提交 Issue。
 
 同学也可以通过提交 **Issue** 和 **Pull Request** 来贡献代码和提出改进建议，帮助完善 mini-pixels。
 
 ## 致谢
 
-[DuckDB](https://github.com/duckdb/duckdb): 高效的嵌入式查询引擎，mini-pixels 中将 Pixels 作为开放文件格式接入DuckDB以执行查询。
+[duckdb](https://github.com/duckdb/duckdb): 高效的嵌入式查询引擎，mini-pixels 中将 pixels 作为开放文件格式接入duckdb以执行查询。
