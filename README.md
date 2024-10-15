@@ -1,25 +1,15 @@
 # mini-pixels
 
-mini-pixels 是一款基于 Pixels 的简化版本，专为教学和学习设计，旨在帮助开发者和学生理解大规模数据处理系统的基础知识。通过简化的架构和模块化的设计，mini-pixels 保留了 Pixels 的核心功能，便于学习者快速掌握其工作原理和设计思路。
+mini-pixels 是 [Pixels](https://github.com/pixelsdb/pixels) 的简化版，旨在为OLAP数据库内核的教学提供实验框架。mini-pixels 保留了 Pixels 存储和查询的核心功能，基本代码来自于[Pixels C++实现](https://github.com/pixelsdb/pixels/tree/master/cpp)。
 
-## 1. 介绍
+## 代码结构
 
-### [Pixels](https://github.com/pixelsdb/pixels)
-Pixels 是一个高效的数据存储和处理引擎，专为大规模数据场景（如时序数据和关系型数据）设计。它通过先进的存储结构和查询优化技术，提供了高效的数据处理能力。Pixels 强调高性能、高扩展性，并在复杂的数据管理任务中表现出色。
+mini-pixels 主要包含以下几个核心模块：
 
-### mini-pixels
-mini-pixels 是 Pixels 的简化版，作为学习工具，帮助开发者和学生理解其核心设计。mini-pixels 实现了基本的存储和查询功能，结构简单，便于学习者从基础上理解数据存储系统的工作方式。
+- **[pixels-common](https://github.com/pixelsdb/mini-pixels/tree/master/pixels-common)**: 包含项目中通用的工具库和基础组件，提供了整个项目中不同模块间的共享功能和结构定义。
+- **[pixels-core](https://github.com/pixelsdb/mini-pixels/tree/master/pixels-core)**: 实现了项目的核心功能，包括数据的存储和查询逻辑。
 
-## 2. 代码结构
-
-mini-pixels 的代码结构简洁明了，主要包含以下几个核心模块：
-
-- **[pixels-common](https://github.com/pixelsdb/mini-pixels/tree/master/pixels-common)**: 包含项目中通用的工具库和基础组件。这些代码用于处理常见的任务，如日志管理、错误处理和数据结构定义，提供了整个项目中不同模块间的共享功能。
-- **[pixels-core](https://github.com/pixelsdb/mini-pixels/tree/master/pixels-core)**: 实现了项目的核心功能，包括数据的存储和查询逻辑。该模块负责数据的物理存储、查询执行以及核心算法的优化工作，是整个系统的核心部分。
-
-这种模块化设计便于用户理解系统的每个部分，并根据需要进行扩展。
-
-## 3. 课程与实验
+## 课程与实验
 
 mini-pixels 是中国人民大学 **实用数据库开发** 课程的实验框架，课程于 **2024 年秋季学期** 开设。课程和实验围绕数据库和大数据系统中常用的**列式存储技术**展开，旨在通过实践帮助学生掌握数据库的实际开发与运用。
 
@@ -35,18 +25,8 @@ mini-pixels 是中国人民大学 **实用数据库开发** 课程的实验框�
 
 这些实验将帮助学生在实践中深刻理解数据库系统的工作原理，并为未来的数据库开发工作奠定基础。如果在实验过程中遇到问题，可以在 Discussions 中讨论，或者提交 Issue 或 Pull request。
 
-## 4. 开发团队
-
-mini-pixels 由以下三位开发者共同开发：
-
-- **王浩哲**: 系统架构设计与项目总负责人。
-- **尹佳**: 负责完善项目功能的开发
-- **卞昊穹**: 项目的指导老师，负责系统整体设计方向与优化指导。
-
-他们的共同努力促成了 mini-pixels 的诞生和持续改进。
-
 此外，课程中的学生也可以通过提交 **Issue** 和 **Pull Request** 来贡献代码和提出改进建议，他们的贡献将进一步推动 mini-pixels 的持续完善和发展。
 
-## 5. 致谢
+## 致谢
 
-特别感谢 **于良永** 对 **Pixels-C++** 项目的贡献，Pixels-C++ 的设计为 mini-pixels 提供了重要参考。同时，我们也要感谢 **DuckDB 开源项目**，它为数据查询和存储技术提供了重要的技术支持与灵感。
+[DuckDB](https://github.com/duckdb/duckdb): 高效的嵌入式查询引擎，mini-pixels 中将 Pixels 作为开放文件格式接入DuckDB以执行查询。
