@@ -107,6 +107,4 @@
 
 ## 4. 附件示例  
 
-实验结果截图应类似如下：
-
-<img src="C:\Users\86136\AppData\Roaming\Typora\typora-user-images\image-20241013114649177.png" alt="image-20241013114649177" style="zoom:50%;" />
+实验结果截图参考experiments/lab1-ref.png
