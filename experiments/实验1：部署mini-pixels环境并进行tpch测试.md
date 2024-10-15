@@ -68,7 +68,7 @@
    :%s#/data/9a3-02/tpch-1#/home/pixels/about-class/mini-pixels#g
    ```
 
-   **提示**：若数据解压路径非`mini-pixels`目录，请将`/home/pixels/about-class/mini-pixels`替换为实际路径。
+   **提示**:请将`/home/pixels/about-class/mini-pixels`替换为实际路径。
 
 7. **运行pixels reader测试并截屏**  
 
