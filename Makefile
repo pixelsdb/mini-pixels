@@ -38,7 +38,7 @@ update:
 	git submodule update --remote --merge
 
 deps:
-	mkdir -p "${PROTOBUF_DIR}/cmake/build" && cd "third-party/protobuf/cmake/build" && \
+	+ mkdir -p "${PROTOBUF_DIR}/cmake/build" && cd "third-party/protobuf/cmake/build" && \
 	cmake -Dprotobuf_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release ../.. -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
 		-Dprotobuf_BUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=./ && \
 	make -j install
@@ -49,11 +49,11 @@ clean:
 
 # Main build
 debug: deps
-	mkdir -p  build/debug && \
+	+ mkdir -p  build/debug && \
 	cmake $(GENERATOR) $(FORCE_COLOR) $(EXTENSION_FLAGS) ${CLIENT_FLAGS} -DEXTENSION_STATIC_BUILD=1 -DCMAKE_BUILD_TYPE=Debug ${BUILD_FLAGS} -S pixels-duckdb/ -B build/debug && \
 	cmake --build build/debug --config Debug
 
 release: deps
-	mkdir -p build/release && \
+	+ mkdir -p build/release && \
 	cmake $(GENERATOR) $(FORCE_COLOR) $(EXTENSION_FLAGS) ${CLIENT_FLAGS} -DEXTENSION_STATIC_BUILD=1 -DCMAKE_BUILD_TYPE=Release ${BUILD_FLAGS} -S pixels-duckdb/ -B build/release && \
 	cmake --build build/release --config Release
