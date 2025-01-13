@@ -51,5 +51,10 @@ public:
     void * current() override;
     void close() override;
     void print(int rowCount) override;
+
+    void add(std::string value);
+    void add(uint8_t* v,int length);
+    void setVal(int elemnetNum,uint8_t* sourceBuf);
+    void setVal(int elementNum, uint8_t* sourceBuf, int start, int length);
 };
 #endif //PIXELS_BINARYCOLUMNVECTOR_H

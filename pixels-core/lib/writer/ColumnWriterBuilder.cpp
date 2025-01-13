@@ -51,7 +51,7 @@ std::shared_ptr<ColumnWriter> ColumnWriterBuilder::newColumnWriter(std::shared_p
         case TypeDescription::STRUCT:
             break;
         default:
-            throw InvalidArgumentException("bad column type in ColumnReaderBuilder: " + std::to_string(type->getCategory()));
+            throw InvalidArgumentException("bad column type in ColumnWriterBuilder: " + std::to_string(type->getCategory()));
     }
     return std::shared_ptr<ColumnWriter>();
 }
