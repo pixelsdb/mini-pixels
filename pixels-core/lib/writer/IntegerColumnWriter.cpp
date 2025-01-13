@@ -41,11 +41,11 @@ int IntegerColumnWriter::write(std::shared_ptr<ColumnVector> vector, int size)
         throw std::invalid_argument("Invalid vector type");
     }
     long* values;
-    if(columnVector->isLongVectore()){
+    if(columnVector->isLongVector()){
       values=columnVector->longVector;
 
     }else {
-        values = columnVector->intVector;
+        values = reinterpret_cast<long *>(columnVector->intVector);
     }
 
     int curPartLength;         // size of the partition which belongs to current pixel

@@ -119,7 +119,7 @@ void LongColumnVector::ensureSize(uint64_t size, bool preserveData) {
             memoryUsage += (long) sizeof(long) * (size - length);
             resize(size);
         } else {
-            long *oldVector = intVector;
+            int *oldVector = intVector;
             posix_memalign(reinterpret_cast<void **>(&intVector), 32,
                            size * sizeof(int32_t));
             if (preserveData) {
@@ -132,6 +132,6 @@ void LongColumnVector::ensureSize(uint64_t size, bool preserveData) {
     }
 }
 
-bool LongColumnVector::isLongVectore() {
+bool LongColumnVector::isLongVector() {
     return isLong;
 }
