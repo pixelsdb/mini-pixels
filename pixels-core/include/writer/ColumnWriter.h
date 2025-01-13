@@ -39,7 +39,8 @@
 
 class ColumnWriter{
 public:
-    ColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption);
+  virtual ~ColumnWriter() = default;
+  ColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption);
 //    virtual ~ColumnWriter() = default;
     /**
      * Write values from input buffers
