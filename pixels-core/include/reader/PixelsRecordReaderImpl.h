@@ -53,6 +53,7 @@ public:
 	bool isEndOfFile() override;
     ~PixelsRecordReaderImpl();
 	void close() override;
+	uint32_t has_async_task_num_{0};
 private:
     std::vector<int64_t> bufferIds;
     void prepareRead();

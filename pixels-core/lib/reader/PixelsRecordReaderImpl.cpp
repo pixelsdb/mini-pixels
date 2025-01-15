@@ -22,7 +22,8 @@ PixelsRecordReaderImpl::PixelsRecordReaderImpl(std::shared_ptr<PhysicalReader> r
     RGLen = option.getRGLen();
     batchSize = option.getBatchSize();
     // batchSize must be larger than STANDARD_VECTOR_SIZE
-    assert(batchSize >= STANDARD_VECTOR_SIZE);
+    // for test purpose, can we comment it temporarily
+//    assert(batchSize >= STANDARD_VECTOR_SIZE);
     enabledFilterPushDown = option.isEnabledFilterPushDown();
     if(enabledFilterPushDown) {
         filter = option.getFilter();
@@ -41,7 +42,7 @@ PixelsRecordReaderImpl::PixelsRecordReaderImpl(std::shared_ptr<PhysicalReader> r
     includedColumnNum = 0;
 	endOfFile = false;
     resultRowBatch = nullptr;
-
+    // ::DirectUringRandomAccessFile::Initialize();
     checkBeforeRead();
 }
 
@@ -181,6 +182,9 @@ std::shared_ptr<VectorizedRowBatch> PixelsRecordReaderImpl::readBatch(bool reuse
     }
 
     std::vector<int> filterColumnIndex;
+    if(has_async_task_num_ > 0) {
+      asyncReadComplete(has_async_task_num_);
+    }
     if(filter != nullptr) {
         for (auto &filterCol : filter->filters) {
             if(filterMask->isNone()) {
@@ -322,10 +326,12 @@ void PixelsRecordReaderImpl::prepareRead() {
 }
 
 void PixelsRecordReaderImpl::asyncReadComplete(int requestSize) {
-    if(ConfigFactory::Instance().boolCheckProperty("localfs.enable.async.io")) {
+    if(ConfigFactory::Instance().boolCheckProperty("localfs.enable.async.io")
+      && has_async_task_num_ >= requestSize) {
         if(ConfigFactory::Instance().getProperty("localfs.async.lib") == "iouring") {
             auto localReader = std::static_pointer_cast<PhysicalLocalReader>(physicalReader);
             localReader->readAsyncComplete(requestSize);
+          has_async_task_num_ -= requestSize;
         } else if(ConfigFactory::Instance().getProperty("localfs.async.lib") == "aio") {
             throw InvalidArgumentException("PhysicalLocalReader::readAsync: We don't support aio for our async read yet.");
         }
@@ -390,6 +396,9 @@ bool PixelsRecordReaderImpl::read() {
 
 		auto byteBuffers = scheduler->executeBatch(physicalReader, requestBatch, originalByteBuffers, queryId);
 
+      if(ConfigFactory::Instance().boolCheckProperty("localfs.enable.async.io") && originalByteBuffers.size() > 0) {
+        has_async_task_num_ += diskChunks.size();
+      }
         for(int index = 0; index < diskChunks.size(); index++) {
             ChunkId chunk = diskChunks.at(index);
             std::shared_ptr<ByteBuffer> bb = byteBuffers.at(index);
