@@ -1,44 +1,49 @@
-# 一些实验相关的tips
-因为写实验的过程中遇到了许多坑，所以写一个tips记录一下。
+# 实验相关的tips
+Author: [XBsleepy](https://github.com/XBsleepy)
+
 ## 依赖
-update之后（之前的版本需不需要不太记得了），需要有boost库，不然编不好。
+pixels-cli 依赖 boost 库
 
-wsl或某些特定版本的系统对liburing的支持不太好，如果编译完成之后用duckdb进行select时出现`DirectRandomAccessFile:initialize io uring fails.`可以换一个发行版或者git clone一个liburing，重装一下。
+wsl 或某些特定版本的系统对 liburing 的支持不太好，如果编译完成之后用 duckdb 进行 select 时出现 `DirectRandomAccessFile:initialize io uring fails.` 可以换一个发行版或者 git clone 一个 liburing，重装一下。
 
-## build
-git clone 之后，需要执行`make pull`，make pull会拉取所有的子模块。（如果忘记pull，可能会出现`CMake Error`，因为子模块还没拉下来）
+## 编译
+git clone 之后，需要执行 `make pull` 拉取所有的子模块，否则可能会出现 `CMake Error`。
 
-随后需要执行`make -j8` (这里8是指使用的核心数，请根据自己机器的情况灵活设置。如果直接`-j`在编译duckdb的时候很可能会直接爆掉，所以可以开小一点，实在不行可以不加`-j`，单核编译，会很慢，但不容易爆掉。)
+随后需要执行 `make -j$(nproc)` 限制并行数（nproc 指当前进程可用的 CPU 数量），未指定时可能会无限使用 CPU 资源进而导致系统崩溃。
 
-`make`默认编译得到的是release版本，为了方便debug，建议使用`make -j8 debug`，这样会生成debug版本的可执行文件，方便找到问题。
+`make` 默认编译得到的是 release 版本，建议使用 `make -j$(nproc) debug` 生成 debug 版本的可执行文件，方便找到问题。
 
-## run
+## 运行
 
-编译完成后，会在`build/release`或者`build/debug`目录下生成文件。
+`make release` (或 `make debug`) 会在 `build/release` (或 `build/debug`) 目录下生成文件。
 
-进入这个目录下，有一个`duckdb`文件可以直接运行，它默认链接了pixel的扩展，可以读取*.pxl的数据。（如果写对了的话）具体参照pdf中的select语句即可。
+可执行文件 `duckdb` 默认链接了 pixel 扩展，可以读取 *.pxl 的数据。
 
-生成*.pxl文件的方法是进入到`build/realease/extension/pixel/pixels-cli`目录下，执行`./pixels-cli`，按照pdf给出的语法执行load语句。
+生成 *.pxl 文件的方法是运行可执行文件 `./pixels-cli`，按照pdf给出的语法执行load语句。
+
+> 在 linux 下可使用 `find . -name pixels-cli` 在当前目录下递归查找可执行文件 `pixels-cli`
+> 
+> 默认位置是 `build/realease/extension/pixel/pixels-cli` 或 `build/debug/extension/pixel/pixels-cli`
 
 ## 任务
 
-任务是要实现成功laod date,timestamp,decimal类型的数据。
+实验要求实现通过 `pixels-cli` 读取列数据类型为 date, timestamp, decimal 的 *.tbl 文件并生成 *.pxl 文件，可通过 `duckdb` 读取 *.pxl 文件验证其正确性。
 
-具体我们需要做的就是，找到对应的比如datecolumnvector,datecolumnwriter等.cpp或.h等未完成的文件，参照已经给出的integer的对应的函数和实现，以及pixel主仓库java版本中的实现补完代码。
+具体我们需要做的就是，找到对应的比如 datecolumnvector, datecolumnwriter 等 .cpp 或 .h 等未完成的文件，参照已经给出的 integer 类型对应的函数和实现，以及 pixel 主仓库中 java 版本中的实现补完代码。
 
-在补完代码之后，运行编译得到的`pixels-cli`，执行load语句，如果没有报错提示，就成功生成了*.pxl文件。
+在补完代码之后，运行编译得到的 `pixels-cli`，执行 load 语句去生成 *.pxl 文件。
 
-随后我们可以在duckdb中执行select语句，如果能正确显示数据，就完成了任务。（decimal实现时还要注意精度，负数的舍入等问题）
+随后可以在 duckdb 中执行 select 语句，如果能正确显示数据，就完成了任务。
 
 
-## tips
-1. 为了方便debug，最好编译debug版本，这样gdb更好用。
-2. 底层的存储，date是int类型，timestamp和decimal是long类型。
-3. pdf中说的-n参数指定最大行数的表述大概有一些问题，因为目前的cli并不会写多个文件，当行数超过-n时并不会默认开一个新的，而是会生成一个无法读取的文件，并且cli不会报错，小心点。
-4. writer默认都是先调用add(string)方法，对于timestamp和date，cpp没有java那样自带的date类型，所以需要自己完成解析。（decimal也是，decimal支持18位的精度，如果直接转成float或者double再变成int，是很有可能有精度损失的）
-5. 在修改代码后，通常可以直接到/mini-pixels目录下执行`make -j$(nproc) debug`。并且能正确更新可执行文件。不到万不得已最好不要直接`make clean`，因为会把所有的东西都删掉，重新编译会很慢，因为有duckdb。
-6. 目前版本的decimal，在precision低于10的时候reader的显示会有问题，别急，可以设置成比10大的。
-7. 现在有了测试文件，如果想要自己生成测试文件请不要在文末添加空行，会导致`segmentation fault`，或者是`runtime error`，小心点。
-8. 任务三的表述有点奇怪。实际是说在你完成前两步，成功make，并且pixel-cli load data不报错之后，用之前提到的编译出来的duckdb执行测试，来看看自己有没有写对。
-9. 建议虚函数全部加上override，这样编译器会帮你检查是否override正确。
-10. 目前的timestamp的precision没用，duckdb读取的时候默认是秒*1e6对应的long。
+## 总结
+1. 为了方便 debug，最好编译 debug 版本，方便 gdb 调试（也可借助 CLion 等工具）
+2. 底层的存储，date 是 int 类型，timestamp 和 decimal 是 long 类型
+3. pixels-cli 并不会写多个文件，当行数超过 -n (load 时指定的最大行数) 时并不会默认开一个新的，而是会生成一个无法读取的文件，并且cli不会报错
+4. writer 默认都是先调用 add(string) 方法，对于 timestamp 和 date，cpp 没有 java 那样自带的 date 类型，所以需要自己完成 string 到 date 类型的解析。（decimal也是，decimal 支持 18 位的精度，如果直接转成 float 或者 double 再变成int，是很有可能有精度损失的）
+5. 在修改代码后，通常可以直接到 mini-pixels 目录下执行 `make -j$(nproc) debug`。并且能正确更新可执行文件。不到万不得已最好不要直接`make clean`，因为会把所有的东西都删掉，重新编译会很慢
+6. 目前版本的 decimal 数据类型在 precision 低于 10 的时候，reader 的显示会有问题，可以设置成比10大的
+7. 如果想要自己生成测试文件请不要在文末添加空行，会导致`segmentation fault`，或者是`runtime error`
+8. 任务三实际是在说使用 duckdb 读取 *.pxl 文件来验证通过 pixles-cli 生成的 *.pxl 是否正确，可以视作测试环节
+9. 建议虚函数全部加上 override，这样编译器会帮你检查是否 override 正确
+10. 目前的 timestamp 的 precision 没用，duckdb读取的时候默认是 秒 * 1e6 对应的 long
