@@ -109,10 +109,11 @@ int main () {
             } catch (const bpo::error& e) {
                  std::cerr << "Error parsing options: " << e.what() << "\n";
             }
-            // try {
-                LoadExecutor *loadExecutor = new LoadExecutor();
-                loadExecutor->execute(vm, command);
-            // } catch
+            LoadExecutor *loadExecutor = new LoadExecutor();
+            loadExecutor->execute(vm, command);
+
+            // free loadExecutor
+            delete loadExecutor;
         }
         else if (command == "QUERY") {
             std::cout << "Not implemented yet." << std::endl;
@@ -134,6 +135,10 @@ int main () {
         }
         else {
             std::cout << "Command " << command << " not found" << std::endl;
+        }
+        // free argv
+        for (auto& arg : argv) {
+            free(arg);
         }
     } // end of while loop
     return 0;
