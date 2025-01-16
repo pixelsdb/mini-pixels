@@ -23,28 +23,31 @@ DecimalColumnVector::DecimalColumnVector(int precision, int scale, bool encoding
     DecimalColumnVector(VectorizedRowBatch::DEFAULT_SIZE, precision, scale, encoding);
 }
 
-DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale, bool encoding): ColumnVector(len, encoding) {
-	// decimal column vector has no encoding so we don't allocate memory to this->vector
-	this->vector = nullptr;
+DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
+                                         bool encoding)
+    : ColumnVector(len, encoding) {
+    // decimal column vector has no encoding so we don't allocate memory to
+    // this->vector
+    this->vector = nullptr;
     this->precision = precision;
     this->scale = scale;
 
     using duckdb::Decimal;
-    memoryUsage += (uint64_t) sizeof(uint64_t) * len;
-        if (precision<= Decimal::MAX_WIDTH_INT16) {
+    memoryUsage += (uint64_t)sizeof(uint64_t) * len;
+    if (precision <= Decimal::MAX_WIDTH_INT16) {
         physical_type_ = PhysicalType::INT16;
         posix_memalign(reinterpret_cast<void **>(&vector), 32,
-                len * sizeof(int16_t));
-        memoryUsage += (long) sizeof(int16_t) * len;
+                       len * sizeof(int16_t));
+        memoryUsage += (long)sizeof(int16_t) * len;
     } else if (precision <= Decimal::MAX_WIDTH_INT32) {
-        physical_type_ =PhysicalType::INT32;
+        physical_type_ = PhysicalType::INT32;
         posix_memalign(reinterpret_cast<void **>(&vector), 32,
-                len * sizeof(int32_t));
-        memoryUsage += (long) sizeof(int32_t) * len;
+                       len * sizeof(int32_t));
+        memoryUsage += (long)sizeof(int32_t) * len;
     } else if (precision <= Decimal::MAX_WIDTH_INT64) {
-        physical_type_ =PhysicalType::INT64;
+        physical_type_ = PhysicalType::INT64;
     } else if (precision <= Decimal::MAX_WIDTH_INT128) {
-        physical_type_ =PhysicalType::INT128;
+        physical_type_ = PhysicalType::INT128;
 
     } else {
         // cannot reach here
@@ -52,12 +55,13 @@ DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
 }
 
 void DecimalColumnVector::close() {
-    if(!closed) {
+    if (!closed) {
         ColumnVector::close();
-        if(physical_type_ == PhysicalType::INT16 || physical_type_ == PhysicalType::INT32) {
+        if (physical_type_ == PhysicalType::INT16 ||
+            physical_type_ == PhysicalType::INT32) {
             free(vector);
         }
-		vector = nullptr;
+        vector = nullptr;
     }
 }
 
