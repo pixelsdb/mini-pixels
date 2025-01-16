@@ -37,12 +37,12 @@ DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
         physical_type_ = PhysicalType::INT16;
         posix_memalign(reinterpret_cast<void **>(&vector), 32,
                        len * sizeof(int16_t));
-        memoryUsage += (long)sizeof(int16_t) * len;
+        memoryUsage += (uint64_t)sizeof(int16_t) * len;
     } else if (precision <= Decimal::MAX_WIDTH_INT32) {
         physical_type_ = PhysicalType::INT32;
         posix_memalign(reinterpret_cast<void **>(&vector), 32,
                        len * sizeof(int32_t));
-        memoryUsage += (long)sizeof(int32_t) * len;
+        memoryUsage += (uint64_t)sizeof(int32_t) * len;
     } else if (precision <= Decimal::MAX_WIDTH_INT64) {
         physical_type_ = PhysicalType::INT64;
         memoryUsage += (uint64_t)sizeof(uint64_t) * len;
