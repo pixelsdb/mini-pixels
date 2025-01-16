@@ -33,7 +33,6 @@ DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
     this->scale = scale;
 
     using duckdb::Decimal;
-    memoryUsage += (uint64_t)sizeof(uint64_t) * len;
     if (precision <= Decimal::MAX_WIDTH_INT16) {
         physical_type_ = PhysicalType::INT16;
         posix_memalign(reinterpret_cast<void **>(&vector), 32,
@@ -46,8 +45,10 @@ DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
         memoryUsage += (long)sizeof(int32_t) * len;
     } else if (precision <= Decimal::MAX_WIDTH_INT64) {
         physical_type_ = PhysicalType::INT64;
+        memoryUsage += (uint64_t)sizeof(uint64_t) * len;
     } else if (precision <= Decimal::MAX_WIDTH_INT128) {
         physical_type_ = PhysicalType::INT128;
+        memoryUsage += (uint64_t)sizeof(uint64_t) * len;
     } else {
         throw std::runtime_error(
             "Decimal precision is bigger than the maximum supported width");
