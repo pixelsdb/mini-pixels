@@ -7,12 +7,15 @@
 
 #include "vector/ColumnVector.h"
 #include "vector/VectorizedRowBatch.h"
+#include "duckdb/common/types.hpp"
 
+using PhysicalType=duckdb::PhysicalType;
 class DecimalColumnVector: public ColumnVector {
 public:
     long * vector;
     int precision;
     int scale;
+    PhysicalType physical_type_;
     static long DEFAULT_UNSCALED_VALUE;
     /**
     * Use this constructor by default. All column vectors

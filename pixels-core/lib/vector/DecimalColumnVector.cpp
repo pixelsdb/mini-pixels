@@ -3,6 +3,7 @@
 //
 
 #include "vector/DecimalColumnVector.h"
+#include "duckdb/common/types/decimal.hpp"
 
 /**
  * The decimal column vector with precision and scale.
@@ -27,12 +28,35 @@ DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
 	this->vector = nullptr;
     this->precision = precision;
     this->scale = scale;
+
+    using duckdb::Decimal;
     memoryUsage += (uint64_t) sizeof(uint64_t) * len;
+        if (precision<= Decimal::MAX_WIDTH_INT16) {
+        physical_type_ = PhysicalType::INT16;
+        posix_memalign(reinterpret_cast<void **>(&vector), 32,
+                len * sizeof(int16_t));
+        memoryUsage += (long) sizeof(int16_t) * len;
+    } else if (precision <= Decimal::MAX_WIDTH_INT32) {
+        physical_type_ =PhysicalType::INT32;
+        posix_memalign(reinterpret_cast<void **>(&vector), 32,
+                len * sizeof(int32_t));
+        memoryUsage += (long) sizeof(int32_t) * len;
+    } else if (precision <= Decimal::MAX_WIDTH_INT64) {
+        physical_type_ =PhysicalType::INT64;
+    } else if (precision <= Decimal::MAX_WIDTH_INT128) {
+        physical_type_ =PhysicalType::INT128;
+
+    } else {
+        // cannot reach here
+    }
 }
 
 void DecimalColumnVector::close() {
     if(!closed) {
         ColumnVector::close();
+        if(physical_type_ == PhysicalType::INT16 || physical_type_ == PhysicalType::INT32) {
+            free(vector);
+        }
 		vector = nullptr;
     }
 }

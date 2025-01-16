@@ -79,3 +79,4 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/../pixels-common/liburing/src/in
 include_directories(../pixels-common/include)
 include_directories(include)
 include_directories(include/writer)
+include_directories(../pixels_duckdb/src/include)
