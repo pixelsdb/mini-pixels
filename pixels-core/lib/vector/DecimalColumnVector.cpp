@@ -48,9 +48,9 @@ DecimalColumnVector::DecimalColumnVector(uint64_t len, int precision, int scale,
         physical_type_ = PhysicalType::INT64;
     } else if (precision <= Decimal::MAX_WIDTH_INT128) {
         physical_type_ = PhysicalType::INT128;
-
     } else {
-        // cannot reach here
+        throw std::runtime_error(
+            "Decimal precision is bigger than the maximum supported width");
     }
 }
 
