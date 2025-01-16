@@ -78,8 +78,14 @@ public:
     virtual void add(int64_t value);
     virtual void add(int value);
 
+
     /*lab2*/
     virtual void add(long value);
+
+    int getLength() {
+     return length;
+    }
+
 };
 
 #endif //PIXELS_COLUMNVECTOR_H

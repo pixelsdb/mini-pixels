@@ -8,7 +8,7 @@
 
 
 
-![image-20241229121331338](/home/whz/mini-pixels/figure/image-20241229121331338.png)
+![image-20241229121331338](../figure/1.png)
 
 3.配置cmake options
 
@@ -22,7 +22,7 @@
 -DCMAKE_PREFIX_PATH=/home/whz/mini-pixels/third-party/protobuf/cmake/build
 ```
 
-![image-20241229122515503](/home/whz/mini-pixels/figure/image-20241229122515503.png)
+![image-20241229122515503](../figure/2.png)
 
 
 
@@ -30,13 +30,17 @@
 
 保存后 clion会自动build
 
-![image-20241229121901319](/home/whz/mini-pixels/figure/image-20241229121901319.png)
+![image-20241229121901319](../figure/3.png)
 
 此时打开的工作目录是mini-pixels,项目目录是pixels-duckdb
 
 4.点击pixels-cli作为目标,设置环境变量进行运行或者调试
 
-![image-20241229122830709](/home/whz/mini-pixels/figure/image-20241229122830709.png)
+![image-20241229122830709](../figure/4.png)
 
+5.pixels-cli配置中，取消before lanuch的build并且设置好pixels的环境变量
 
+![image-20250113160030103](../figure/5.png)
+
+6.在命令行输入`make debug -j`编译debug版本
 
