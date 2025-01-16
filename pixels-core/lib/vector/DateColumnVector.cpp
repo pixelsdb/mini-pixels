@@ -58,3 +58,14 @@ void * DateColumnVector::current() {
         return dates + readIndex;
     }
 }
+
+/*function created by dhl as lab2*/
+void DateColumnVector::add(int value){
+	/*这里value的意思是自1970年一月一日以来的天数*/
+    if (writeIndex >= length) {
+        ensureSize(writeIndex * 2, true);
+    }
+    int index = writeIndex++;
+	dates[index]=value;
+    isNull[index] = false;
+}

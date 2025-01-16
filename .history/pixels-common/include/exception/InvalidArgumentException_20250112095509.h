@@ -7,7 +7,7 @@
 
 #include<iostream>
 #include<exception>
-
+#include <cstdint>
 
 
 class InvalidArgumentException: public std::exception {

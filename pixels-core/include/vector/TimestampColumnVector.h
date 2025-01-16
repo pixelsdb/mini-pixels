@@ -23,6 +23,9 @@ public:
     ~TimestampColumnVector();
     void print(int rowCount) override;
     void close() override;
+
+    /*lab2*/
+    void add(long value) override;
 private:
     bool isLong;
 };

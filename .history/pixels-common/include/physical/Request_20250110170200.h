@@ -4,7 +4,7 @@
 
 #ifndef PIXELS_REQUEST_H
 #define PIXELS_REQUEST_H
-#include <cstdint>
+
 #include <iostream>
 
 class Request {

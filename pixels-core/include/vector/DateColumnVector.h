@@ -27,6 +27,9 @@ public:
 	void print(int rowCount) override;
 	void close() override;
 	void set(int elementNum, int days);
+
+    /*lab 2 by dhl*/
+    void add(int value) override;
 };
 
 #endif // DUCKDB_DATECOLUMNVECTOR_H

@@ -66,3 +66,15 @@ int DecimalColumnVector::getPrecision() {
 int DecimalColumnVector::getScale() {
 	return scale;
 }
+
+/*lab 2*/
+void DecimalColumnVector::add(long value){
+    
+	/*这里value的意思应该是没加浮点的小数？*/
+    if (writeIndex >= length) {
+        ensureSize(writeIndex * 2, true);
+    }
+    int index = writeIndex++;
+	vector[index]=value;
+    isNull[index] = false;
+}

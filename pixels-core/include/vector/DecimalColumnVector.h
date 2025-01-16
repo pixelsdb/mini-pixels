@@ -26,6 +26,9 @@ public:
     void * current() override;
 	int getPrecision();
 	int getScale();
+
+    /*lab 2*/
+    void add(long value) override;//应该是long？
 };
 
 #endif //PIXELS_DECIMALCOLUMNVECTOR_H

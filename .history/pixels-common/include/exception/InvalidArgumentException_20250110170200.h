@@ -8,8 +8,6 @@
 #include<iostream>
 #include<exception>
 
-
-
 class InvalidArgumentException: public std::exception {
 public:
     InvalidArgumentException() = default;

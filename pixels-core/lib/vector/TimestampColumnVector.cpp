@@ -65,3 +65,15 @@ void TimestampColumnVector::set(int elementNum, long ts) {
     times[elementNum] = ts;
     // TODO: isNull
 }
+
+
+/*function created by dhl as lab2*/
+void TimestampColumnVector::add(long value){
+	/*这里value的意思是自1970年一月一日以来的ms数*/
+    if (writeIndex >= length) {
+        ensureSize(writeIndex * 2, true);
+    }
+    int index = writeIndex++;
+	times[index]=value;
+    isNull[index] = false;
+}

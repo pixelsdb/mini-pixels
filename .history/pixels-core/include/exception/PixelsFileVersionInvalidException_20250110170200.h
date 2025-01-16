@@ -8,7 +8,6 @@
 #include <exception>
 #include <string>
 #include <iostream>
-#include <cstdint>
 #include "PixelsVersion.h"
 
 class PixelsFileVersionInvalidException: public std::exception {
