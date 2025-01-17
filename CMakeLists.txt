@@ -9,8 +9,6 @@ include_directories(include)
 
 set(ENV{PIXELS_SRC} ${CMAKE_CURRENT_SOURCE_DIR})
 set(ENV{PIXELS_HOME} ${CMAKE_CURRENT_SOURCE_DIR})
-
-
 set(EXTENSION_SOURCES
         pixels_extension.cpp
         PixelsScanFunction.cpp
@@ -19,7 +17,6 @@ add_library(${EXTENSION_NAME} STATIC ${EXTENSION_SOURCES})
 
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
-
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(pixels-common)
@@ -32,21 +29,16 @@ include_directories(pixels-core/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/pixels-common/liburing/src/include)
 
-
-
 target_link_libraries(
         ${EXTENSION_NAME}
         pixels-common
         pixels-core
 )
 
-
-# Add the subdirectory that contains the build_loadable_extension definition
-
 set(PARAMETERS "-warnings")
 build_loadable_extension(${TARGET_NAME} ${PARAMETERS} ${EXTENSION_SOURCES})
 
-message("duckdb export set: ${DUCKDB_EXPORT_SET}" )
+message("duckdb export set: ${DUCKDB_EXPORT_SET}")
 
 install(
         TARGETS ${EXTENSION_NAME} pixels-core pixels-common
