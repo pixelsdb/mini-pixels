@@ -5,13 +5,14 @@
 #ifndef PIXELS_PIXELSRUNTIMEEXCEPTION_H
 #define PIXELS_PIXELSRUNTIMEEXCEPTION_H
 
-#include <exception>
-#include <string>
-#include <iostream>
 #include "PixelsVersion.h"
+#include <cstdint>
+#include <exception>
+#include <iostream>
+#include <string>
 
-class PixelsFileVersionInvalidException: public std::exception {
-public:
+class PixelsFileVersionInvalidException : public std::exception {
+  public:
     explicit PixelsFileVersionInvalidException(uint32_t version);
 };
-#endif //PIXELS_PIXELSRUNTIMEEXCEPTION_H
+#endif // PIXELS_PIXELSRUNTIMEEXCEPTION_H

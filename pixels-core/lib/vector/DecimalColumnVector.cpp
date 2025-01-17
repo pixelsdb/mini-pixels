@@ -2,6 +2,9 @@
 // Created by yuly on 05.04.23.
 //
 
+#include <algorithm>
+#include <cstring>
+#include <cmath>
 #include "vector/DecimalColumnVector.h"
 #include "duckdb/common/types/decimal.hpp"
 
@@ -94,4 +97,34 @@ int DecimalColumnVector::getPrecision() {
 
 int DecimalColumnVector::getScale() {
 	return scale;
+}
+
+void DecimalColumnVector::add(std::string &value) {
+    std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+    size_t pos = value.find('.');
+    long integerValue = std::stoll(value.substr(0, pos) + value.substr(pos + 1));
+    long l = integerValue * std::pow(10, scale - (value.length() - pos - 1));
+    add(l);
+}
+
+void DecimalColumnVector::add(long value) {
+    if (writeIndex >= length) {
+        ensureSize(writeIndex * 2, true);
+    }
+    int index = writeIndex++;
+    vector[index] = value;
+    isNull[index] = false;
+}
+
+void DecimalColumnVector::ensureSize(uint64_t size, bool preserveData) {
+    ColumnVector::ensureSize(size, preserveData);
+    long *oldVector = vector;
+    posix_memalign(reinterpret_cast<void **>(&vector), 32,
+                    size * sizeof(long));
+    if (preserveData) {
+        std::copy(oldVector, oldVector + length, vector);
+    }
+    delete[] oldVector;
+    memoryUsage += (long) sizeof(int) * (size - length);
+    resize(size);
 }

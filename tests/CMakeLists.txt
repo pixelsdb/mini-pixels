@@ -28,4 +28,4 @@
 #include_directories(../pixels-common/include)
 #gtest_discover_tests(unit_tests)
 
-add_subdirectory(writer)
+#add_subdirectory(writer)

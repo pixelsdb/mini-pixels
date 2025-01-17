@@ -107,4 +107,6 @@
 
 ## 4. 附件示例  
 
-实验结果截图参考experiments/lab1-ref.png
+实验结果截图参考:
+
+![lab1-ref](../figure/lab1-ref.png)

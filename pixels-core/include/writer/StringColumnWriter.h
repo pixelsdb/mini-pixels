@@ -31,23 +31,24 @@
 #include "encoding/RunLenIntEncoder.h"
 
 class StringColumnWriter : public ColumnWriter {
-  StringColumnWriter(std::shared_ptr<TypeDescription> type,std::shared_ptr<PixelsWriterOption> writerOption);
+  public:
+    StringColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption);
 
-  // vector should be converted to BinaryColumnVector
-  int write(std::shared_ptr<ColumnVector> vector,int length) override;
-  void close() override;
-  void newPixels() ;
+    // vector should be converted to BinaryColumnVector
+    int write(std::shared_ptr<ColumnVector> vector,int length) override;
+    void close() override;
+    void newPixels() ;
 
-  bool decideNullsPadding(std::shared_ptr<PixelsWriterOption> writerOption) override;
+    bool decideNullsPadding(std::shared_ptr<PixelsWriterOption> writerOption) override;
 
-  void writeCurPartWithoutDict(std::shared_ptr<PixelsWriterOption> writerOption,uint8_t ** values,
-                               int* vLens,int* vOffsets,int curPartLength,int curPartOffset);
+    void writeCurPartWithoutDict(std::shared_ptr<PixelsWriterOption> writerOption, std::vector<std::string>& values,
+                                int* vLens,int* vOffsets,int curPartLength,int curPartOffset);
 
-  void flush() override;
+    void flush() override;
 
-  pixels::proto::ColumnEncoding getColumnChunkEncoding();
+    //pixels::proto::ColumnEncoding getColumnChunkEncoding();
 
-  void flushStarts();
+    void flushStarts();
 
 
   private:
@@ -56,7 +57,8 @@ class StringColumnWriter : public ColumnWriter {
     bool dictionaryEncoding;
     std::shared_ptr<DynamicIntArray> startsArray;
     std::shared_ptr<EncodingUtils>  encodingUtils;
-  std::unique_ptr<RunLenIntEncoder> encoder;
+    std::unique_ptr<RunLenIntEncoder> encoder;
+    std::shared_ptr<PixelsWriterOption> writerOption;
   int  startOffset=0;
 
 

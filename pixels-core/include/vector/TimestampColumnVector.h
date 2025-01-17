@@ -23,6 +23,10 @@ public:
     ~TimestampColumnVector();
     void print(int rowCount) override;
     void close() override;
+
+    void add(std::string &value) override;
+    void add(long value) override;
+    void ensureSize(uint64_t size, bool preserveData) override;
 private:
     bool isLong;
 };
