@@ -36,7 +36,6 @@ pull:
 
 update:
 	git submodule update --remote --merge pixels-duckdb
-	git -C third-party/googletest checkout v1.15.2
 	git -C third-party/protobuf checkout v3.21.6
 
 deps:
