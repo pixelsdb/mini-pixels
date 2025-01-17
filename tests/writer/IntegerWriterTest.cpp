@@ -159,7 +159,7 @@ TEST(IntegerWriterTest, DISABLED_WriteIntWithoutNull) {
 TEST(EncodeTest, DISABLED_EncodeLong) {
     const size_t len = 10;
     std::array<long, len> data;
-    for(int i = 0; i < len; i++) {
+    for(size_t i = 0; i < len; i++) {
         data[i] = INT64_MAX - i;
     }
     auto encode_buffer = std::make_shared<ByteBuffer>();
@@ -172,7 +172,7 @@ TEST(EncodeTest, DISABLED_EncodeLong) {
 
     bool is_signed = true;
     auto decoder = std::make_unique<RunLenIntDecoder>(encode_buffer, is_signed);
-    for(int i = 0; i < len; i++) {
+    for(size_t i = 0; i < len; i++) {
         EXPECT_EQ(decoder->next(), data[i]);
     }
 }

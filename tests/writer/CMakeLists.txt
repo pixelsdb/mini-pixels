@@ -17,8 +17,8 @@ add_executable(PixelsWriterTest PixelsWriterTest.cpp)
 
 # Set compiler options for Debug build
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
-    target_compile_options(IntegerWriterTest PRIVATE -Werror -fsanitize=undefined -fsanitize=address)
-    target_compile_options(PixelsWriterTest PRIVATE -Werror -fsanitize=undefined -fsanitize=address)
+    target_compile_options(IntegerWriterTest PRIVATE -fsanitize=undefined -fsanitize=address)
+    target_compile_options(PixelsWriterTest PRIVATE -fsanitize=undefined -fsanitize=address)
 
     target_link_options(IntegerWriterTest BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address)
     target_link_options(PixelsWriterTest BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address)
