@@ -35,7 +35,8 @@ pull:
 	git submodule update --recursive --init
 
 update:
-	git submodule update --remote --merge
+	git submodule update --remote --merge pixels-duckdb
+	git -C third-party/protobuf checkout v3.21.6
 
 deps:
 	+ mkdir -p "${PROTOBUF_DIR}/cmake/build" && cd "third-party/protobuf/cmake/build" && \
