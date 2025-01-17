@@ -25,22 +25,18 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
 endif()
 
 # Link Google Test and other necessary libraries to the test executables
-target_link_libraries(
-        IntegerWriterTest
-        gtest_main
+target_link_libraries(IntegerWriterTest
+        GTest::gtest_main
         pixels-common
         pixels-core
         duckdb
-        GTest::gtest_main
 )
 
-target_link_libraries(
-        PixelsWriterTest
-        gtest_main
+target_link_libraries(PixelsWriterTest
+        GTest::gtest_main
         pixels-common
         pixels-core
         duckdb
-        GTest::gtest_main
 )
 
 set(GTEST_DIR "${PROJECT_SOURCE_DIR}/third-party/googletest")
