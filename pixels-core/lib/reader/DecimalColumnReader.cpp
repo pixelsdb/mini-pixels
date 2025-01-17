@@ -38,9 +38,33 @@ void DecimalColumnReader::read(std::shared_ptr<ByteBuffer> input, pixels::proto:
     int pixelId = elementIndex / pixelStride;
     bool hasNull = chunkIndex.pixelstatistics(pixelId).statistic().hasnull();
     setValid(input, pixelStride, vector, pixelId, hasNull);
-
-    columnVector->vector = (long *)(input->getPointer() + input->getReadPos());
-    input->setReadPos(input->getReadPos() + size * sizeof(long));
-
-
+    switch (columnVector->physical_type_) {
+    case PhysicalType::INT16:
+        for (int i = 0; i < size; i++) {
+            std::memcpy((uint8_t *)columnVector->vector +
+                            (vectorIndex + i) * sizeof(int16_t),
+                        input->getPointer() + input->getReadPos(),
+                        sizeof(int16_t));
+            input->setReadPos(input->getReadPos() + sizeof(int64_t));
+        }
+        break;
+    case PhysicalType::INT32:
+        for (int i = 0; i < size; i++) {
+            std::memcpy((uint8_t *)columnVector->vector +
+                            (vectorIndex + i) * sizeof(int32_t),
+                        input->getPointer() + input->getReadPos(),
+                        sizeof(int32_t));
+            input->setReadPos(input->getReadPos() + sizeof(int64_t));
+        }
+        break;
+    case PhysicalType::INT64:
+    case PhysicalType::INT128:
+        columnVector->vector =
+            (long *)(input->getPointer() + input->getReadPos());
+        input->setReadPos(input->getReadPos() + size * sizeof(long));
+        break;
+    default:
+        throw std::runtime_error(
+            "DecimalColumnReader: Unexpected Physical Type");
+    }
 }
