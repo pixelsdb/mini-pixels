@@ -2,11 +2,7 @@
 
 1.拉取项目并且执行make pull
 
-
-
 2.打开项目mini-pixels目录下面的pixels-dukcdb 因为clion默认project目录下的CMakeLists.txt为根cmake
-
-
 
 ![image-20241229121331338](../figure/1.png)
 
@@ -23,10 +19,6 @@
 ```
 
 ![image-20241229122515503](../figure/2.png)
-
-
-
-
 
 保存后 clion会自动build
 

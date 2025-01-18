@@ -41,7 +41,7 @@ int IntegerColumnWriter::write(std::shared_ptr<ColumnVector> vector, int size)
         throw std::invalid_argument("Invalid vector type");
     }
     long* values;
-    if(columnVector->isLongVectore()){
+    if(columnVector->isLongVector()){
       values=columnVector->longVector;
 
     }else {

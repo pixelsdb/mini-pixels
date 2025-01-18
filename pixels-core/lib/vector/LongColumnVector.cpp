@@ -132,6 +132,6 @@ void LongColumnVector::ensureSize(uint64_t size, bool preserveData) {
     }
 }
 
-bool LongColumnVector::isLongVectore() {
+bool LongColumnVector::isLongVector() {
     return isLong;
 }
