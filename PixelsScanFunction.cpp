@@ -255,6 +255,7 @@ void PixelsScanFunction::TransformDuckdbType(const std::shared_ptr<TypeDescripti
 			//            break;
 			//        case TypeDescription::BINARY:
 			//            break;
+            case TypeDescription::STRING:
 			case TypeDescription::VARCHAR:
 				return_types.emplace_back(LogicalType::VARCHAR);
 				break;
