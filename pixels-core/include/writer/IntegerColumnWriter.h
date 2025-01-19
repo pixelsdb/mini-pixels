@@ -37,7 +37,7 @@ public:
     void newPixel() override;
     void writeCurPartLong(std::shared_ptr<ColumnVector> columnVector, long* values, int curPartLength, int curPartOffset);
     bool decideNullsPadding(std::shared_ptr<PixelsWriterOption> writerOption) override;
-    pixels::proto::ColumnEncoding getColumnChunkEncoding();
+    pixels::proto::ColumnEncoding getColumnChunkEncoding() const override;
 private:
     bool isLong; //current column type is long or int, used for the first pixel
     bool runlengthEncoding;
