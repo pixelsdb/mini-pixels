@@ -28,6 +28,7 @@
 #include "encoding/RunLenIntEncoder.h"
 
 class TimestampColumnWriter : public ColumnWriter{
+public:
     TimestampColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption);
 
     int write(std::shared_ptr<ColumnVector> vector, int length) override;

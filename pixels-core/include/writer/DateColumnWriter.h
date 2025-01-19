@@ -29,6 +29,7 @@
 #include "encoding/RunLenIntEncoder.h"
 
 class DateColumnWriter : public ColumnWriter{
+public:
     DateColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption);
 
     int write(std::shared_ptr<ColumnVector> vector, int length) override;
