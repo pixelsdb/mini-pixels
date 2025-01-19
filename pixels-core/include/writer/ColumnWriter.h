@@ -53,7 +53,7 @@ public:
     virtual bool decideNullsPadding(std::shared_ptr<PixelsWriterOption> writerOption) =0;
     virtual pixels::proto::ColumnChunkIndex getColumnChunkIndex();
     virtual std::shared_ptr<pixels::proto::ColumnChunkIndex> getColumnChunkIndexPtr();
-    virtual pixels::proto::ColumnEncoding getColumnChunkEncoding();
+    virtual pixels::proto::ColumnEncoding getColumnChunkEncoding() const ; 
     virtual void reset();
     virtual void flush() ;
     virtual void close() ;
