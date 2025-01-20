@@ -57,13 +57,9 @@ void PixelsConsumer::run() {
         regex = " ";
     }
 
-//    int pixelsStride = std::stoi(ConfigFactory::Instance().getProperty("pixel.stride"));
-//    int rowGroupSize = std::stoi(ConfigFactory::Instance().getProperty("row.group.size"));
-//    int64_t blockSize = std::stoll(ConfigFactory::Instance().getProperty("block.size"));
-    int pixelsStride = 2;
-    int rowGroupSize = 100;
-    int64_t blockSize = 1024;
-
+    int pixelsStride = std::stoi(ConfigFactory::Instance().getProperty("pixel.stride"));
+    int rowGroupSize = std::stoi(ConfigFactory::Instance().getProperty("row.group.size"));
+    int64_t blockSize = std::stoll(ConfigFactory::Instance().getProperty("block.size"));
     short replication = static_cast<short>(std::stoi(ConfigFactory::Instance().getProperty("block.replication")));
 
     std::shared_ptr<TypeDescription> schema = TypeDescription::fromString(schemaStr);
@@ -98,13 +94,13 @@ void PixelsConsumer::run() {
                 }
                 if (initPixelsFile) {
                     LocalFS targetStorage;
-                    targetFileName = std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())) + ".pxl";
+                    targetFileName = std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())) + \
+                                         "_" + std::to_string(this->loadedFiles.size()) + ".pxl";
                     targetFilePath = targetPath + targetFileName;
                     pixelsWriter = std::make_shared<PixelsWriterImpl>(schema, pixelsStride, rowGroupSize, targetFilePath, blockSize,
                                                                       true, encodingLevel, nullPadding,false, 1);
                 }
                 initPixelsFile = false;
-
                 ++rowBatch->rowCount;
                 ++rowCounter;
 
@@ -124,7 +120,6 @@ void PixelsConsumer::run() {
                 if (rowBatch->rowCount == rowBatch->getMaxSize()) {
                     std::cout << "writing row group to file: " << targetFilePath << " rowCount:"<<rowBatch->rowCount<<std::endl;
                     pixelsWriter->addRowBatch(rowBatch);
-
                     rowBatch->reset();
                 }
 
@@ -136,6 +131,7 @@ void PixelsConsumer::run() {
                     }
                     pixelsWriter->close();
                     this->loadedFiles.push_back(targetFilePath);
+                    std::cout << "Generate file: " << targetFilePath << std::endl;
                     rowCounter = 0;
                     initPixelsFile = true;
                 }
