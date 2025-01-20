@@ -17,3 +17,42 @@
  * License along with Pixels.  If not, see
  * <https://www.gnu.org/licenses/>.
  */
+ 
+ #include "DecimalColumnWriter.h"
+#include "ColumnVector.h"
+#include "encoding/RunLenIntEncoder.h"
+#include "PixelsWriterOption.h"
+#include "utils/EncodingUtils.h"
+
+DecimalColumnWriter::DecimalColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption)
+    : ColumnWriter(type, writerOption) {
+    // You can initialize additional members here if needed, like encoding strategies
+}
+
+int DecimalColumnWriter::write(std::shared_ptr<ColumnVector> vector, int length) {
+    // Retrieve the decimal column vector
+    auto columnVector = std::static_pointer_cast<DecimalColumnVector>(vector);
+    if (!columnVector) {
+        throw std::invalid_argument("Invalid vector type");
+    }
+
+    // Example: Assuming you want to encode decimals with run-length encoding (RLE)
+    if (writerOption->useRunLengthEncoding) {
+        // Perform run-length encoding for decimals
+        RunLenIntEncoder encoder;
+        encoder.encode(columnVector->values, length);
+    } else {
+        // If RLE isn't used, write values as they are
+        for (int i = 0; i < length; ++i) {
+            // Here you would write each decimal value (this is just a placeholder for actual logic)
+            // For example, columnVector->values[i] can be written to a file or buffer
+        }
+    }
+
+    return length;  // Return the number of values written
+}
+
+bool DecimalColumnWriter::decideNullsPadding(std::shared_ptr<PixelsWriterOption> writerOption) {
+    // Decide if null padding is needed based on the writer options
+    return writerOption->nullPaddingEnabled;
+}

@@ -8,6 +8,7 @@
 #include "vector/ColumnVector.h"
 #include "vector/VectorizedRowBatch.h"
 
+
 class TimestampColumnVector: public ColumnVector {
 public:
     int precision;
@@ -23,6 +24,11 @@ public:
     ~TimestampColumnVector();
     void print(int rowCount) override;
     void close() override;
+    void add(const std::string &value) override;
+    void add(int64_t value) override;
+    void add(int value) override;
+    void addNull() override;
+    void ensureSize(uint64_t size, bool preserveData) override;
 private:
     bool isLong;
 };

@@ -5,6 +5,9 @@
 #ifndef PIXELS_COLUMNVECTOR_H
 #define PIXELS_COLUMNVECTOR_H
 
+#ifndef DATECOLUMNVECTOR_H
+#define DATECOLUMNVECTOR_H
+
 /**
  * ColumnVector derived from org.apache.hadoop.hive.ql.exec.vector.
  * <p>
@@ -21,6 +24,9 @@
 #include <iostream>
 #include <memory>
 #include "exception/InvalidArgumentException.h"
+
+#include <vector>
+#include <string>
 
 /**
  * ColumnVector derived from org.apache.hadoop.hive.ql.exec.vector.
