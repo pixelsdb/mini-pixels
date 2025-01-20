@@ -63,7 +63,9 @@ void DecimalColumnVector::close() {
     if (!closed) {
         ColumnVector::close();
         if (physical_type_ == PhysicalType::INT16 ||
-            physical_type_ == PhysicalType::INT32) {
+            physical_type_ == PhysicalType::INT32 || 
+            physical_type_ == PhysicalType::INT64 ||
+            physical_type_ == PhysicalType::INT128) {
             free(vector);
         }
         vector = nullptr;
