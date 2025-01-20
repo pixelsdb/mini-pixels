@@ -36,7 +36,7 @@ target_link_libraries(
 )
 
 set(PARAMETERS "-warnings")
-build_loadable_extension(${TARGET_NAME} ${PARAMETERS} ${EXTENSION_SOURCES})
+#build_loadable_extension(${TARGET_NAME} ${PARAMETERS} ${EXTENSION_SOURCES})
 
 message("duckdb export set: ${DUCKDB_EXPORT_SET}")
 

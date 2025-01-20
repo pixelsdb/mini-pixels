@@ -21,6 +21,8 @@ void ColumnVector::close() {
         writeIndex = 0;
         closed = true;
         // TODO: reset other variables
+        memoryUsage = 0;  // 重置内存使用量
+        std::fill(isNull, isNull + length, false);  // 清空NULL标记数组
         if (isValid != nullptr) {
             free(isValid);
             isValid = nullptr;
@@ -32,6 +34,9 @@ void ColumnVector::reset() {
     writeIndex = 0;
     readIndex = 0;
     // TODO: reset other variables
+    noNulls = true;      // 重置没有NULL的标志
+    memoryUsage = length + sizeof(int) * 3 + 4;  // 重新计算内存使用量
+    closed = false;      // 标记对象为未关闭
 }
 
 void ColumnVector::print(int rowCount) {
