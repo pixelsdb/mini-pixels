@@ -31,5 +31,6 @@ public:
     void ensureSize(uint64_t size, bool preserveData) override;
 private:
     bool isLong;
+    std::vector<int64_t> timestampVector;
 };
 #endif //DUCKDB_TIMESTAMPCOLUMNVECTOR_H

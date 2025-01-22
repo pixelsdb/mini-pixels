@@ -38,6 +38,7 @@ public:
     std::shared_ptr<PixelsWriterOption> setEncodingLevel(EncodingLevel encodingLevel);
     bool isNullsPadding() const;
     std::shared_ptr<PixelsWriterOption> setNullsPadding(bool nullsPadding);
+    bool nullPaddingEnabled;
 private:
     int pixelsStride;
     EncodingLevel encodingLevel;

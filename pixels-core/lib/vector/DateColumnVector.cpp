@@ -112,4 +112,3 @@ void DateColumnVector::ensureSize(uint64_t size, bool preserveData) {
     }
 }
 
-}

@@ -18,11 +18,13 @@
  * <https://www.gnu.org/licenses/>.
  */
  
- #include "DecimalColumnWriter.h"
-#include "ColumnVector.h"
+#include "DecimalColumnWriter.h"
+#include "../include/vector/ColumnVector.h"
 #include "encoding/RunLenIntEncoder.h"
 #include "PixelsWriterOption.h"
 #include "utils/EncodingUtils.h"
+
+std::shared_ptr<PixelsWriterOption> writerOption = getWriterOption();
 
 DecimalColumnWriter::DecimalColumnWriter(std::shared_ptr<TypeDescription> type, std::shared_ptr<PixelsWriterOption> writerOption)
     : ColumnWriter(type, writerOption) {

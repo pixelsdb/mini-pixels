@@ -21,7 +21,7 @@ public:
 	~LongColumnVector();
     void print(int rowCount) override;
     void close() override;
-    void add(std::string &value) override;
+    void add(const std::string &value) override;
     void add(bool value) override;
     void add(int64_t value) override;
     void add(int value) override;
