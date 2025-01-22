@@ -30,13 +30,18 @@ add_subdirectory(tests)
 
 include_directories(pixels-common/include)
 include_directories(pixels-core/include)
+include_directories(/home/hedainan/mini-pixels/pixels-duckdb/src/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/pixels-common/liburing/src/include)
+
+target_include_directories(${EXTENSION_NAME} PRIVATE /home/hedainan/mini-pixels/pixels-duckdb/src/include)
+
 
 target_link_libraries(
         ${EXTENSION_NAME}
         pixels-common
         pixels-core
+        pixels-common/liburing/src/include
 )
 
 set(PARAMETERS "-warnings")

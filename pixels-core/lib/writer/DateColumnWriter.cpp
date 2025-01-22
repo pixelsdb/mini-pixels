@@ -18,6 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
  
+ 
  #include "DateColumnWriter.h"
 #include "ColumnVector.h"
 #include "encoding/RunLenIntEncoder.h"

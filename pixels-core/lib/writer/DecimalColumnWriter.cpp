@@ -18,6 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
  
+ 
 #include "DecimalColumnWriter.h"
 #include "../include/vector/ColumnVector.h"
 #include "encoding/RunLenIntEncoder.h"
@@ -58,3 +59,5 @@ bool DecimalColumnWriter::decideNullsPadding(std::shared_ptr<PixelsWriterOption>
     // Decide if null padding is needed based on the writer options
     return writerOption->nullPaddingEnabled;
 }
+
+

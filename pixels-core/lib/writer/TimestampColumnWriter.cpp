@@ -18,6 +18,8 @@
  * <https://www.gnu.org/licenses/>.
  */
  
+
+
  #include "TimestampColumnWriter.h"
 #include "ColumnVector.h"
 #include "encoding/RunLenIntEncoder.h"
@@ -89,3 +91,5 @@ pixels::proto::ColumnEncoding TimestampColumnWriter::getColumnChunkEncoding() co
     // 返回当前列的编码类型
     return runlengthEncoding ? pixels::proto::ColumnEncoding::RUN_LENGTH_ENCODING : pixels::proto::ColumnEncoding::PLAIN;
 }
+
+
