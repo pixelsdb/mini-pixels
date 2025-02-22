@@ -4,6 +4,8 @@
 
 #include "vector/DecimalColumnVector.h"
 #include "duckdb/common/types/decimal.hpp"
+#include <stdexcept>
+#include <iostream>
 
 /**
  * The decimal column vector with precision and scale.
@@ -94,4 +96,40 @@ int DecimalColumnVector::getPrecision() {
 
 int DecimalColumnVector::getScale() {
 	return scale;
+}
+
+void DecimalColumnVector::add(double value) {
+    // 处理 double 类型的值，避免多次类型转换
+    // 例如，将值存储到 vector 中
+    ensureSize(writeIndex + 1, true);  // 确保大小足够
+    decimalVector.push_back(value);    // 存储 double 类型的值
+    isNull[writeIndex++] = false;      // 标记该位置为非 null
+}
+
+
+void DecimalColumnVector::add(const std::string &value) {
+    double decimal = std::stod(value);  // 将字符串转换为 double
+    this->add(decimal); // 调用 add(double)
+}
+
+void DecimalColumnVector::add(int64_t value) {
+    this->add(static_cast<double>(value));   // 将 int64_t 转换为 double 存储
+}
+
+void DecimalColumnVector::add(int value) {
+    this->add(static_cast<double>(value));  // 将 int 转换为 double 存储
+}
+
+
+void DecimalColumnVector::addNull() {
+    ensureSize(writeIndex * 2, true);  // 扩展容量
+    decimalVector.push_back(0.0);  // 将 0.0 存储为 null
+    isNull[writeIndex++] = true;  // 标记为 null
+}
+
+void DecimalColumnVector::ensureSize(uint64_t size, bool preserveData) {
+    if (size > decimalVector.size()) {
+        decimalVector.reserve(size * 2);  // 扩展容量
+        isNull = (uint8_t*) realloc(isNull, sizeof(uint8_t) * size);  // 重新分配 isNull 数组
+    }
 }

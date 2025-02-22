@@ -17,6 +17,7 @@ class DecimalColumnVector : public ColumnVector {
     int scale;
     PhysicalType physical_type_;
     static long DEFAULT_UNSCALED_VALUE;
+    std::vector<double> decimalVector;
     /**
     * Use this constructor by default. All column vectors
     * should normally be the default size.
@@ -29,6 +30,13 @@ class DecimalColumnVector : public ColumnVector {
     void * current() override;
 	int getPrecision();
 	int getScale();
+	
+    virtual void add(double value) override;
+    virtual void add(const std::string &value) override;
+    virtual void add(int64_t value) override;
+    virtual void add(int value) override;
+    void addNull() override;
+    void ensureSize(uint64_t size, bool preserveData) override;
 };
 
 #endif // PIXELS_DECIMALCOLUMNVECTOR_H

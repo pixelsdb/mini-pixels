@@ -22,6 +22,9 @@
 #include <memory>
 #include "exception/InvalidArgumentException.h"
 
+#include <vector>
+#include <string>
+
 /**
  * ColumnVector derived from org.apache.hadoop.hive.ql.exec.vector.
  * <p>
@@ -71,9 +74,10 @@ public:
     uint64_t * currentValid();
     virtual void print(int rowCount);      // this is only used for debug
     bool checkValid(int index);
-    void addNull();
+    virtual void addNull();
     virtual void ensureSize(uint64_t size, bool preserveData);
-    virtual void add(std::string &value);
+    virtual void add(double value);
+    virtual void add(const std::string &value);
     virtual void add(bool value);
     virtual void add(int64_t value);
     virtual void add(int value);

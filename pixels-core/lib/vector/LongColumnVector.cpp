@@ -64,7 +64,8 @@ void * LongColumnVector::current() {
     }
 }
 
-void LongColumnVector::add(std::string &value) {
+/*
+void LongColumnVector::add(const std::string &value) {
     std::transform(value.begin(), value.end(), value.begin(), ::tolower);
     if (value == "true") {
         add(1);
@@ -72,6 +73,18 @@ void LongColumnVector::add(std::string &value) {
         add(0);
     } else {
         add(std::stol(value));
+    }
+}*/
+
+void LongColumnVector::add(const std::string &value) {
+    std::string tempValue = value;  // 创建副本
+    std::transform(tempValue.begin(), tempValue.end(), tempValue.begin(), ::tolower);  // 对副本进行修改
+    if (tempValue == "true") {
+        add(1);  // 传递布尔值 1
+    } else if (tempValue == "false") {
+        add(0);  // 传递布尔值 0
+    } else {
+        add(std::stol(value));  // 处理为 long 类型
     }
 }
 
