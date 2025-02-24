@@ -27,8 +27,6 @@ ColumnWriter(type,writerOption), curPixelVector(pixelStride) {
 }
 
 int StringColumnWriter::write(std::shared_ptr<ColumnVector> vector, int length) {
-    std::cout << "StringColumnWriter::write" << std::endl;
-
     auto columnVector = std::static_pointer_cast<BinaryColumnVector>(vector);
 
     if (!columnVector)
@@ -80,11 +78,8 @@ void StringColumnWriter::writeCurPartWithoutDict(std::shared_ptr<PixelsWriterOpt
             // Write the actual data
             u_int8_t* temp_buffer = new u_int8_t[vLens[curPartOffset + i]];
             std::memcpy(temp_buffer, values[curPartOffset + i].c_str(), vLens[curPartOffset + i]);
-            std::cout << "At index " << curPartOffset + i << " Put string: " << (char* )temp_buffer << std::endl;
-            std::cout << "len and offset: " << vLens[curPartOffset + i] << " " << vOffsets[curPartOffset + i] << std::endl;
             outputStream->putBytes(temp_buffer, vLens[curPartOffset + i], vOffsets[curPartOffset + i]);
             startsArray->add(startOffset);
-            std::cout << "StringColumnWriter::writeCurPartWithoutDict: startOffset = " << startOffset << std::endl;
             startOffset += vLens[curPartOffset + i];
             delete[] temp_buffer;
         }
