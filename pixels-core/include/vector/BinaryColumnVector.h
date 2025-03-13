@@ -32,6 +32,8 @@ class BinaryColumnVector: public ColumnVector {
 public:
     duckdb::string_t * vector;
 
+    std::vector<std::string> str_vec;
+
     /**
     * Use this constructor by default. All column vectors
     * should normally be the default size.
@@ -52,9 +54,10 @@ public:
     void close() override;
     void print(int rowCount) override;
 
-    void add(std::string value);
+    void add(std::string& value) override;
     void add(uint8_t* v,int length);
-    void setVal(int elemnetNum,uint8_t* sourceBuf);
+    //void setVal(int elemnetNum,uint8_t* sourceBuf);
     void setVal(int elementNum, uint8_t* sourceBuf, int start, int length);
+    void ensureSize(uint64_t size, bool preserveData) override;
 };
 #endif //PIXELS_BINARYCOLUMNVECTOR_H

@@ -241,8 +241,9 @@ void PixelsScanFunction::TransformDuckdbType(const std::shared_ptr<TypeDescripti
 			case TypeDescription::DECIMAL:
 			    return_types.emplace_back(LogicalType::DECIMAL(columnType->getPrecision(), columnType->getScale()));
 			    break;
-			//        case TypeDescription::STRING:
-			//            break;
+			case TypeDescription::STRING:
+                return_types.emplace_back(LogicalType::VARCHAR);
+			    break;
 			case TypeDescription::DATE:
 			    return_types.emplace_back(LogicalType::DATE);
 			    break;
@@ -332,8 +333,6 @@ void PixelsScanFunction::TransformDuckdbChunk(PixelsReadLocalState & data,
 			    break;
 		    }
 
-			//        case TypeDescription::STRING:
-			//            break;
 			case TypeDescription::DATE:{
 			    auto dateCol = std::static_pointer_cast<DateColumnVector>(col);
                 Vector vector(LogicalType::DATE,
@@ -361,6 +360,7 @@ void PixelsScanFunction::TransformDuckdbChunk(PixelsReadLocalState & data,
 			//            break;
 			//        case TypeDescription::BINARY:
 			//            break;
+            case TypeDescription::STRING:
 			case TypeDescription::VARCHAR:
 			case TypeDescription::CHAR:
 		    {

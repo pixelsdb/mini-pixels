@@ -26,8 +26,8 @@ std::shared_ptr<ColumnReader> ColumnReaderBuilder::newColumnReader(std::shared_p
 			    throw InvalidArgumentException("Currently we didn't implement LongDecimalColumnVector.");
 		    }
 	    }
-//        case TypeDescription::STRING:
-//            break;
+        case TypeDescription::STRING:
+            return std::make_shared<StringColumnReader>(type);
         case TypeDescription::DATE:
 		    return std::make_shared<DateColumnReader>(type);
 //        case TypeDescription::TIME:

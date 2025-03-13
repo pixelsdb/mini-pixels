@@ -85,11 +85,11 @@ void IntegerColumnWriter::writeCurPartLong(std::shared_ptr<ColumnVector> columnV
         if (columnVector->isNull[i + curPartOffset])
         {
             hasNull = true;
-            if (nullsPadding)
-            {
+            //if (nullsPadding)
+            //{
                 // padding 0 for nulls
                 curPixelVector[curPixelVectorIndex++] = 0L;
-            }
+            //}
         }
         else
         {

@@ -121,7 +121,7 @@ void LongColumnVector::ensureSize(uint64_t size, bool preserveData) {
         } else {
             long *oldVector = intVector;
             posix_memalign(reinterpret_cast<void **>(&intVector), 32,
-                           size * sizeof(int32_t));
+                           size * sizeof(int64_t));
             if (preserveData) {
                 std::copy(oldVector, oldVector + length, intVector);
             }

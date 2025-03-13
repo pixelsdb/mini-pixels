@@ -74,6 +74,8 @@ void StringColumnReader::read(std::shared_ptr<ByteBuffer> input, pixels::proto::
             elementIndex++;
         }
     } else {
+        //currentStart = 0;
+        //nextStart = startsBuf->getInt();
         for(int i = 0; i < size; i++) {
             if(elementIndex % pixelStride == 0) {
                 int pixelId = elementIndex / pixelStride;
@@ -84,7 +86,6 @@ void StringColumnReader::read(std::shared_ptr<ByteBuffer> input, pixels::proto::
                 currentStart = nextStart;
                 nextStart = startsBuf->getInt();
                 int len = nextStart - currentStart;
-                // use setRef instead of setVal to reduce memory copy
                 columnVector->setRef(
                         i + vectorIndex, contentBuf->getPointer(), bufferOffset, len);
                 bufferOffset += len;

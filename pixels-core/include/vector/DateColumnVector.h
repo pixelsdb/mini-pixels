@@ -27,6 +27,10 @@ public:
 	void print(int rowCount) override;
 	void close() override;
 	void set(int elementNum, int days);
+
+	void add(std::string &value) override;
+    void add(int value) override;
+    void ensureSize(uint64_t size, bool preserveData) override;
 };
 
 #endif // DUCKDB_DATECOLUMNVECTOR_H

@@ -2,6 +2,10 @@
 // Created by liyu on 12/23/23.
 //
 
+#include <sstream>
+#include <ctime>
+#include <iomanip>
+
 #include "vector/TimestampColumnVector.h"
 
 TimestampColumnVector::TimestampColumnVector(int precision, bool encoding): ColumnVector(VectorizedRowBatch::DEFAULT_SIZE, encoding) {
@@ -10,12 +14,8 @@ TimestampColumnVector::TimestampColumnVector(int precision, bool encoding): Colu
 
 TimestampColumnVector::TimestampColumnVector(uint64_t len, int precision, bool encoding): ColumnVector(len, encoding) {
     this->precision = precision;
-    if(encoding) {
-        posix_memalign(reinterpret_cast<void **>(&this->times), 64,
-                       len * sizeof(long));
-    } else {
-        this->times = nullptr;
-    }
+    posix_memalign(reinterpret_cast<void **>(&this->times), 64,
+                    len * sizeof(long));
 }
 
 
@@ -64,4 +64,39 @@ void TimestampColumnVector::set(int elementNum, long ts) {
     }
     times[elementNum] = ts;
     // TODO: isNull
+}
+
+void TimestampColumnVector::add(std::string& value) {
+    std::tm tm = {};
+    std::istringstream ss(value);
+    ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
+    if(ss.fail()) {
+        throw InvalidArgumentException("Invalid timestamp format");
+    }
+    long ts = (std::mktime(&tm)) * 1e6;
+    add(ts);
+}
+
+void TimestampColumnVector::add(long value) {
+    if(writeIndex >= length) {
+        ensureSize(writeIndex * 2, true);
+    }
+    int index = writeIndex++;
+    times[index] = value;
+    isNull[index] = false;
+}
+
+void TimestampColumnVector::ensureSize(uint64_t size, bool preserveData) {
+    ColumnVector::ensureSize(size, preserveData);
+    if (length < size) {
+        long *oldVector = times;
+        posix_memalign(reinterpret_cast<void **>(&times), 32,
+                        size * sizeof(int64_t));
+        if (preserveData) {
+            std::copy(oldVector, oldVector + length, times);
+        }
+        delete[] oldVector;
+        memoryUsage += (long) sizeof(long) * (size - length);
+        resize(size);
+    }
 }
