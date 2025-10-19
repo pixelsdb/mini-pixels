@@ -1,17 +1,17 @@
-# mini-pixels
+# Mini-Pixels C++
 
-mini-pixels的c++代码库是 [pixels cpp](https://github.com/pixelsdb/pixels/tree/master/cpp) 的简化版。
+Mini-Pixels的c++代码库是 [Pixels C++](https://github.com/pixelsdb/pixels/tree/master/cpp) 的简化版。
 
 ## 代码结构
 
-mini-pixels C++代码主要包含以下主要目录或sub-module：
+Mini-Pixels C++代码主要包含以下主要目录或sub-module：
 
 - **experiments**: 实验文档。
-- **include**: mini-pixels的duckdb extension所需的头文件。
-- **pixels-cli**: mini-pixels的命令行工具。
+- **include**: Mini-Pixels的duckdb extension所需的头文件。
+- **pixels-cli**: Mini-Pixels的命令行工具。
 - **pixels-common**: 通用的工具库和基础组件，提供了整个项目中不同模块间的共享功能和结构定义。
 - **pixels-core**: 实现了项目的核心功能，包括数据的存储和查询逻辑。
-- **pixels-duckdb**: duckdb-1.3及mini-pixels的duckdb extension实现。
+- **pixels-duckdb**: duckdb-1.3及Mini-Pixels的duckdb extension实现。
 - **tests**: 功能测试和单元测试。
 - **third-party**: 第三方依赖，如protobuf。
 
