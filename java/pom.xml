@@ -43,8 +43,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.useIncrementalCompilation>true</maven.compiler.useIncrementalCompilation>
         <maven.plugin.source.version>3.1.0</maven.plugin.source.version>
         <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
@@ -59,20 +59,7 @@
         <maven.plugin.protoc-jar.version>3.3.0.1</maven.plugin.protoc-jar.version>
         <maven.plugin.build-helper.version>3.6.1</maven.plugin.build-helper.version>
 
-        <!-- query engines -->
-        <dep.presto.version>0.279</dep.presto.version>
-        <dep.trino.version>466</dep.trino.version>
-
-        <!-- storage systems -->
-        <dep.hadoop.version>3.4.2</dep.hadoop.version>
-        <dep.awssdk.version>2.30.17</dep.awssdk.version>
-        <dep.jedis.version>4.2.0</dep.jedis.version>
-        <dep.gcp.version>26.1.2</dep.gcp.version>
-        <dep.rocksdb.version>9.10.0</dep.rocksdb.version>
-        <dep.sqlite.version>3.50.2.0</dep.sqlite.version>
-
         <!-- common libraries -->
-        <dep.spike.java.version>0.1.1</dep.spike.java.version>
         <dep.airlift.slice.version>0.34</dep.airlift.slice.version>
         <!-- netty-4.1.118-Final is used by awssdk-2.30.17 and hadoop-client-3.4.2. And it is compatible with grpc-1.74.0,
         async-http-client-2.12.4, and jetcd-0.7.7.
@@ -88,22 +75,12 @@
         <dep.protobuf.version>3.25.5</dep.protobuf.version>
         <dep.grpc.version>1.74.0</dep.grpc.version>
         <dep.flatbuffers.version>2.0.8</dep.flatbuffers.version>
-        <!-- jetcd-core-0.7.7 uses grpc-1.60.0 and netty-4.1.100-Final,
-        however it is tested to be compatible with grpc-1.74.0 and netty-4.1.118-Final -->
-        <dep.jetcd.version>0.7.7</dep.jetcd.version>
         <dep.jna.version>5.13.0</dep.jna.version>
         <dep.javax.annotation.version>1.3.2</dep.javax.annotation.version>
-        <dep.prometheus.client.version>0.16.0</dep.prometheus.client.version>
         <!-- http-client-4.5.13 is the version used by awssdk:apache-client-2.30.17 and hadoop-3.4.2 -->
         <dep.apache-httpclient.version>4.5.13</dep.apache-httpclient.version>
         <!-- apache httpclient-4.5.13 uses httpcore-4.4.13, however, awssdk:apache-client-2.30.17 uses httpcore-4.4.16 -->
         <dep.apache-httpcore.version>4.4.16</dep.apache-httpcore.version>
-        <dep.apache-calcite.version>1.32.0</dep.apache-calcite.version>
-        <dep.apache-parquet.version>1.13.0</dep.apache-parquet.version>
-
-        <!--profiling-->
-        <dep.async-profiler.version>2.9</dep.async-profiler.version>
-        <dep.commons-net.version>3.9.0</dep.commons-net.version>
 
         <!-- logging -->
         <!-- log4j-2.18.0 is compatible with slf4j-1.7.36 -->
@@ -160,265 +137,10 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- presto-jdbc -->
-            <dependency>
-                <groupId>com.facebook.presto</groupId>
-                <artifactId>presto-jdbc</artifactId>
-                <version>${dep.presto.version}</version>
-            </dependency>
-
-            <!-- trino-jdbc -->
-            <dependency>
-                <groupId>io.trino</groupId>
-                <artifactId>trino-jdbc</artifactId>
-                <version>${dep.trino.version}</version>
-            </dependency>
-
-            <!-- prometheus -->
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient</artifactId>
-                <version>${dep.prometheus.client.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_pushgateway</artifactId>
-                <version>${dep.prometheus.client.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_servlet</artifactId>
-                <version>${dep.prometheus.client.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_hotspot</artifactId>
-                <version>${dep.prometheus.client.version}</version>
-            </dependency>
-
-            <!-- jetcd -->
-            <dependency>
-                <groupId>io.etcd</groupId>
-                <artifactId>jetcd-core</artifactId>
-                <version>${dep.jetcd.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-netty</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-protobuf</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-stub</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-grpclb</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-util</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-common</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-buffer</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-transport</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-handler</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-handler-proxy</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-codec-http</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-codec-http2</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-resolver</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-resolver-dns</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4jj</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- sqlite jdbc -->
-            <dependency>
-                <groupId>org.xerial</groupId>
-                <artifactId>sqlite-jdbc</artifactId>
-                <version>${dep.sqlite.version}</version>
-            </dependency>
-
-            <!-- hdfs -->
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-client</artifactId>
-                <version>${dep.hadoop.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-cli</groupId>
-                        <artifactId>commons-cli</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-reload4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.reload4j</groupId>
-                        <artifactId>reload4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-servlet</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-webapp</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.servlet.jsp</groupId>
-                        <artifactId>jsp-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>jersey-servlet</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.xerial.snappy</groupId>
-                        <artifactId>snappy-java</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.avro</groupId>
-                        <artifactId>avro</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.curator</groupId>
-                        <artifactId>curator-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.curator</groupId>
-                        <artifactId>curator-framework</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.curator</groupId>
-                        <artifactId>curator-recipes</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-yarn-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-yarn-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-mapreduce-client-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-annotations</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-mapreduce-client-core</artifactId>
-                <version>${dep.hadoop.version}</version>
-            </dependency>
-
-            <!-- amazon aws -->
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>${dep.awssdk.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- google cloud -->
-            <dependency>
-                <groupId>com.google.cloud</groupId>
-                <artifactId>libraries-bom</artifactId>
-                <version>${dep.gcp.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- jedis -->
-            <dependency>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-                <version>${dep.jedis.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
             <dependency>
                 <groupId>io.airlift</groupId>
                 <artifactId>slice</artifactId>
                 <version>${dep.airlift.slice.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.rocksdb</groupId>
-                <artifactId>rocksdbjni</artifactId>
-                <version>${dep.rocksdb.version}</version>
             </dependency>
 
             <!-- guava -->
@@ -475,25 +197,6 @@
                 <groupId>io.grpc</groupId>
                 <artifactId>grpc-context</artifactId>
                 <version>${dep.grpc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.grpc</groupId>
-                <artifactId>grpc-netty</artifactId>
-                <version>${dep.grpc.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-codec-http2</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-handler-proxy</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-transport-native-unix-common</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.grpc</groupId>
@@ -627,45 +330,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- apache-calcite -->
-            <dependency>
-                <groupId>org.apache.calcite</groupId>
-                <artifactId>calcite-core</artifactId>
-                <version>${dep.apache-calcite.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.calcite</groupId>
-                <artifactId>calcite-plus</artifactId>
-                <version>${dep.apache-calcite.version}</version>
-            </dependency>
-
-            <!-- apache-parquet -->
-            <dependency>
-                <groupId>org.apache.parquet</groupId>
-                <artifactId>parquet-common</artifactId>
-                <version>${dep.apache-parquet.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.parquet</groupId>
-                <artifactId>parquet-encoding</artifactId>
-                <version>${dep.apache-parquet.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.parquet</groupId>
-                <artifactId>parquet-column</artifactId>
-                <version>${dep.apache-parquet.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.parquet</groupId>
-                <artifactId>parquet-hadoop</artifactId>
-                <version>${dep.apache-parquet.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.parquet</groupId>
-                <artifactId>parquet-avro</artifactId>
-                <version>${dep.apache-parquet.version}</version>
-            </dependency>
-
             <!-- javax-annotation -->
             <dependency>
                 <groupId>javax.annotation</groupId>
@@ -713,18 +377,6 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>${dep.commons-logging.version}</version>
-            </dependency>
-
-            <!--profiling-->
-            <dependency>
-                <groupId>tools.profiler</groupId>
-                <artifactId>async-profiler</artifactId>
-                <version>${dep.async-profiler.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${dep.commons-net.version}</version>
             </dependency>
 
             <!-- testing -->

@@ -20,7 +20,6 @@
 package io.pixelsdb.pixels.core.reader;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import io.pixelsdb.pixels.common.metrics.ReadPerfMetrics;
 import io.pixelsdb.pixels.common.physical.PhysicalReader;
 import io.pixelsdb.pixels.common.physical.Scheduler;
 import io.pixelsdb.pixels.common.physical.SchedulerFactory;
@@ -60,9 +59,6 @@ public class PixelsRecordReaderImpl implements PixelsRecordReader
     private final boolean shouldReadHiddenColumn;
     private final int RGStart;
     private int RGLen;
-    private final boolean enableMetrics;
-    private final String metricsDir;
-    private final ReadPerfMetrics readPerfMetrics;
     private final boolean enableCache;
     private final List<String> cacheOrder;
     private final PixelsFooterCache pixelsFooterCache;
@@ -138,8 +134,6 @@ public class PixelsRecordReaderImpl implements PixelsRecordReader
                                   PixelsProto.PostScript postScript,
                                   PixelsProto.Footer footer,
                                   PixelsReaderOption option,
-                                  boolean enableMetrics,
-                                  String metricsDir,
                                   boolean enableCache,
                                   List<String> cacheOrder,
                                   PixelsFooterCache pixelsFooterCache) throws IOException
@@ -156,9 +150,6 @@ public class PixelsRecordReaderImpl implements PixelsRecordReader
         this.enableEncodedVector = option.isEnableEncodedColumnVector();
         this.typeMode = option.isReadIntColumnAsIntVector() ?
                 TypeDescription.Mode.CREATE_INT_VECTOR_FOR_INT : TypeDescription.Mode.NONE;
-        this.enableMetrics = enableMetrics;
-        this.metricsDir = metricsDir;
-        this.readPerfMetrics = new ReadPerfMetrics();
         this.enableCache = enableCache;
         this.cacheOrder = cacheOrder;
         this.pixelsFooterCache = pixelsFooterCache;
