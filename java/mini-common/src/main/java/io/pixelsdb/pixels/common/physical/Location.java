@@ -19,9 +19,6 @@
  */
 package io.pixelsdb.pixels.common.physical;
 
-import org.apache.hadoop.fs.BlockLocation;
-
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URI;
 
@@ -79,13 +76,6 @@ public class Location
         this.hosts = that.hosts;
         this.names = that.names;
         this.corrupt = that.corrupt;
-    }
-
-    public Location(BlockLocation blockLocation) throws IOException
-    {
-        this.hosts = blockLocation.getHosts();
-        this.names = blockLocation.getNames();
-        this.corrupt = blockLocation.isCorrupt();
     }
 
     public Location(URI uri)

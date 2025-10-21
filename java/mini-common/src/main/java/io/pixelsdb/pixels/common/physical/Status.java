@@ -19,10 +19,6 @@
  */
 package io.pixelsdb.pixels.common.physical;
 
-import org.apache.hadoop.fs.FileStatus;
-
-import static java.util.Objects.requireNonNull;
-
 /**
  * @author hank
  * @date 2021-08-20
@@ -45,15 +41,6 @@ public class Status implements Comparable
         this.length = length;
         this.isDir = isDir;
         this.replication = (short) replication;
-    }
-
-    public Status (FileStatus hdfs)
-    {
-        requireNonNull(hdfs);
-        this.path = hdfs.getPath().toString();
-        this.length = hdfs.getLen();
-        this.isDir = hdfs.isDirectory();
-        this.replication = hdfs.getReplication();
     }
 
     /**
