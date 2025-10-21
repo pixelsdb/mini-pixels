@@ -25,12 +25,10 @@ import io.pixelsdb.pixels.common.physical.Storage;
 import io.pixelsdb.pixels.common.utils.Constants;
 import io.pixelsdb.pixels.core.exception.PixelsFileMagicInvalidException;
 import io.pixelsdb.pixels.core.exception.PixelsFileVersionInvalidException;
-import io.pixelsdb.pixels.core.exception.PixelsMetricsCollectProbOutOfRange;
 import io.pixelsdb.pixels.core.exception.PixelsReaderException;
 import io.pixelsdb.pixels.core.reader.PixelsReaderOption;
 import io.pixelsdb.pixels.core.reader.PixelsRecordReader;
 import io.pixelsdb.pixels.core.reader.PixelsRecordReaderImpl;
-import io.pixelsdb.pixels.core.utils.PixelsCoreConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,8 +57,6 @@ public class PixelsReaderImpl implements PixelsReader
     private final PixelsProto.PostScript postScript;
     private final PixelsProto.Footer footer;
     private final List<PixelsRecordReader> recordReaders;
-    private final String metricsDir;
-    private final float metricsCollectProb;
     private final boolean enableCache;
     private final List<String> cacheOrder;
     private final PixelsFooterCache pixelsFooterCache;
@@ -69,8 +65,6 @@ public class PixelsReaderImpl implements PixelsReader
     private PixelsReaderImpl(TypeDescription fileSchema,
                              PhysicalReader physicalReader,
                              PixelsProto.FileTail fileTail,
-                             String metricsDir,
-                             float metricsCollectProb,
                              boolean enableCache,
                              List<String> cacheOrder,
                              PixelsFooterCache pixelsFooterCache)
@@ -80,8 +74,6 @@ public class PixelsReaderImpl implements PixelsReader
         this.postScript = fileTail.getPostscript();
         this.footer = fileTail.getFooter();
         this.recordReaders = new LinkedList<>();
-        this.metricsDir = metricsDir;
-        this.metricsCollectProb = metricsCollectProb;
         this.enableCache = enableCache;
         this.cacheOrder = cacheOrder;
         this.pixelsFooterCache = pixelsFooterCache;
@@ -183,25 +175,9 @@ public class PixelsReaderImpl implements PixelsReader
 
             builderSchema = TypeDescription.createSchema(fileTail.getFooter().getTypesList());
 
-            // check metrics file
-            PixelsCoreConfig coreConfig = new PixelsCoreConfig();
-            String metricsDir = coreConfig.getMetricsDir();
-//            File file = new File(metricsDir);
-//            if (!file.isDirectory() || !file.exists()) {
-//                throw new PixelsMetricsDirNotFoundException(metricsDir);
-//            }
-
-            // check metrics collect probability
-            float metricCollectProb = coreConfig.getMetricsCollectProb();
-            if (metricCollectProb > 1.0f || metricCollectProb < 0.0f)
-            {
-                throw new PixelsMetricsCollectProbOutOfRange(metricCollectProb);
-            }
-
             // create a default PixelsReader
-            return new PixelsReaderImpl(builderSchema, fsReader, fileTail, metricsDir, metricCollectProb,
-                    builderEnableCache, builderCacheOrder,
-                    builderPixelsFooterCache);
+            return new PixelsReaderImpl(builderSchema, fsReader, fileTail, builderEnableCache,
+                    builderCacheOrder, builderPixelsFooterCache);
         }
     }
 
@@ -228,15 +204,8 @@ public class PixelsReaderImpl implements PixelsReader
     @Override
     public PixelsRecordReader read(PixelsReaderOption option) throws IOException
     {
-        float diceValue = random.nextFloat();
-        boolean enableMetrics = false;
-        if (diceValue < metricsCollectProb)
-        {
-            enableMetrics = true;
-        }
-//        LOGGER.debug("create a recordReader with enableCache as " + enableCache);
-        PixelsRecordReader recordReader = new PixelsRecordReaderImpl(physicalReader, postScript, footer, option,
-                enableMetrics, metricsDir, enableCache, cacheOrder, pixelsFooterCache);
+        PixelsRecordReader recordReader = new PixelsRecordReaderImpl(physicalReader, postScript, footer,
+                option, enableCache, cacheOrder, pixelsFooterCache);
         recordReaders.add(recordReader);
         return recordReader;
     }
