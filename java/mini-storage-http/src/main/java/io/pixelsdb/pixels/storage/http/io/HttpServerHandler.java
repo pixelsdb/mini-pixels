@@ -36,10 +36,6 @@ import static io.netty.handler.codec.http.HttpHeaderValues.KEEP_ALIVE;
 import static io.netty.handler.codec.http.HttpResponseStatus.INTERNAL_SERVER_ERROR;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 
-/**
- * @author jasha64
- * @create 2023-07-27
- */
 @ChannelHandler.Sharable
 public class HttpServerHandler extends SimpleChannelInboundHandler<HttpObject>
 {

@@ -76,3 +76,20 @@ Ensure that the `PIXELS_HOME` directory exists, copy `mini-common/src/main/resou
 and create the directory `PIXELS_HOME/logs` where the log files will be written to.
 
 > Note: `SRC_BASE` and `PIXELS_HOME` should be separate directories. They contain the source code and the installation of Mini-Pixels, respectively.
+
+## Lab 1
+
+The first lab is to optimize `mini-storage-http`. This module can be used to transfer data from one process to the other, and it will be used by the
+shuffle framework in PixelsDB (the cloud lakehouse engine based on Pixels).
+
+The efficiency of `mini-storage-http` significantly impacts the performance of data transfer and data shuffle.
+The current implementation of `mini-storage-http` needs to be optimized in performance, resource efficiency, and comment+code qualify.
+For example, it attempts to use Netty (a popular async-network library used in many big-data systems such as Spark) to implement asynchronous data transfer.
+However, it actually transfers data serially.
+
+Please help improve the performance of this component (e.g., by enabling real async transfer, reducing memory copy, etc.) and reduce the CPU and memory consumptions.
+
+You can test the performance of this component by running the unit test in `mini-storage-http/src/test/java/io/pixelsdb/pixels/storage/http/TestHttpStream`.
+Ensure you have 8GB free memory on your laptop to run this test.
+
+We will add a command in `mini-cli` for the performance evaluation shortly after.

@@ -40,11 +40,11 @@ public class PhysicalHttpStreamReader implements PhysicalReader
     {
         if (storage instanceof HttpStream)
         {
-            this.stream = (HttpStream) storage;
+            this.stream = storage;
         }
         else
         {
-            throw new IOException("Storage is not LocalFS.");
+            throw new IOException("Storage is not http.");
         }
         this.path = path;
         this.dataInputStream = storage.open(path);

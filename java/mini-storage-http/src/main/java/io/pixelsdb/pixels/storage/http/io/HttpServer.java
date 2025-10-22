@@ -33,9 +33,6 @@ import java.security.cert.CertificateException;
 
 /**
  * Basic HTTP server using the netty library.
- *
- * @author jasha64
- * @create 2023-07-27
  */
 public final class HttpServer
 {

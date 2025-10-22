@@ -42,7 +42,7 @@ public class HttpInputStream extends InputStream
     private boolean open;
 
     /**
-     * The schema of http http.
+     * The schema of http.
      * Default value is http.
      */
     private final String schema = "http";
@@ -58,7 +58,7 @@ public class HttpInputStream extends InputStream
     private int port;
 
     /**
-     * The uri of http http.
+     * The uri of http.
      */
     private String uri;
 
