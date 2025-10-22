@@ -15,8 +15,8 @@ Mini-Pixels Java代码主要包含以下主要module：
 ## Prerequisites
 
 We develop and run Mini-Pixels (and also [Pixels](https://github.com/pixelsdb/pixels)) on Ubuntu 22.04. MacOS and other recent version of Linux distributions should also work.
-For MS Windows, you can try if you want, let us know if you get it work:)
-This document only provides to instructions on Ubuntu.
+For MS Windows, you can try if you want, and let us know if you get it work:)
+This document only provides the instructions on Ubuntu.
 
 Besides the OS, JDK 11 (or above) and Maven 3.8 (or above) are required to build Pixels. Earlier Maven versions may work but are not tested.
 
@@ -47,7 +47,7 @@ Check if Maven is using the required JDK:
 mvn --version
 ```
 The printed Java version should be consistent to the Java version printed by java --version.
-Otherwise, check if the JAVA_HOME environment variable is pointing to the /path/to/the/required/jdk.
+Otherwise, check if the JAVA_HOME environment variable is pointing to `/path/to/the/required/jdk`.
 
 ## Build Mini-Pixels
 
