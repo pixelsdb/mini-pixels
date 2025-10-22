@@ -12,15 +12,50 @@ Mini-Pixels Java代码主要包含以下主要module：
 - **mini-storage-http**: Mini-Pixels的http storage实现，用于shuffle等场景中基于http的P2P数据传输。
 - **mini-storage-localfs**: Mini-Pixels的localfs storage实现，用于读写本地文件系统中的数据。
 
+## Prerequisites
+
+We develop and run Mini-Pixels (and also [Pixels](https://github.com/pixelsdb/pixels)) on Ubuntu 22.04. MacOS and other recent version of Linux distributions should also work.
+For MS Windows, you can try if you want, let us know if you get it work:)
+This document only provides to instructions on Ubuntu.
+
+Besides the OS, JDK 11 (or above) and Maven 3.8 (or above) are required to build Pixels. Earlier Maven versions may work but are not tested.
+
+### Install JDK
+
+In ubuntu 22.04, JDK 21 or below can be installed using apt:
+```bash
+sudo apt install openjdk-21-jdk openjdk-21-jre
+```
+Replace 21 with other valid JDK version if needed.
+
+Check the java version:
+```bash
+java -version
+```
+If other version of JDK is in use, switch to the required JDK:
+```bash
+update-java-alternatives --list
+sudo update-java-alternatives --set /path/to/the/required/jdk
+```
+
+### Install Maven
+On some operating systems, the Maven installed by apt or yum might be incompatible with recent JDKs such as 17+. 
+In this case, manually install a later Maven compatible with your JDK following [Maven Installation](https://maven.apache.org/install.html).
+
+Check if Maven is using the required JDK:
+```bash
+mvn --version
+```
+The printed Java version should be consistent to the Java version printed by java --version.
+Otherwise, check if the JAVA_HOME environment variable is pointing to the /path/to/the/required/jdk.
+
 ## Build Mini-Pixels
 
-JDK 11 (or above) and Maven 3.8 (or above) are required to build Pixels.
-Earlier Maven versions may work but are not tested.
-After installing these prerequisites, enter any `SRC_BASE` directory, clone the Mini-Pixels codebase and build its Java part as follows:
+After installing the prerequisites, enter any `SRC_BASE` directory, clone the Mini-Pixels codebase and build its Java part as follows:
 ```bash
 git clone https://github.com/pixelsdb/mini-pixels.git
 cd mini-pixels/java
-# ensure PIXELS_HOME environment variable is set to the installation directory of pixels (not SRC_BASE).
+# ensure PIXELS_HOME environment variable is set to the installation directory of Mini-Pixels (not SRC_BASE).
 export PIXELS_HOME=[pixels-install-dir]
 mvn clean install
 ```
@@ -31,12 +66,13 @@ Please also find the executable jar(s) of Mini-Pixels：
 
 ## Develop Mini-Pixels in IntelliJ
 
-You can open `SRC_BASE/pixels` as a maven project in IntelliJ.
+You can open `SRC_BASE/mini-pixels/java` as a maven project in IntelliJ.
 When the project is fully indexed and the dependencies are successfully downloaded,
 you can build Pixels using the maven plugin (as an alternative of the `mvn` command), run unit tests, and debug the code.
 
 To use the maven plugin, run/debug the unit tests, or run/debug the main classes of Pixels in Intellij, set the `PIXELS_HOME` environment
 variable for `Maven`, `Junit`, or `Application` in `Run` -> `Edit Configurations` -> `Edit Configuration Templetes`.
-Ensure that the `PIXELS_HOME` directory exists and follow the instructions in [Install Pixels](docs/INSTALL.md#install-pixels) to put
-the `pixels.properties` into `PIXELS_HOME/etc` and create the `logs` directory where the log files will be
-written into.
+Ensure that the `PIXELS_HOME` directory exists, copy `mini-common/src/main/resources/pixels.properties` into `PIXELS_HOME/etc`,
+and create the directory `PIXELS_HOME/logs` where the log files will be written to.
+
+> Note: `SRC_BASE` and `PIXELS_HOME` should be separate directories. They contain the source code and the installation of Mini-Pixels, respectively.
