@@ -29,10 +29,6 @@ import io.netty.handler.codec.http.HttpServerExpectContinueHandler;
 import io.netty.handler.ssl.SslContext;
 import io.pixelsdb.pixels.common.utils.ConfigFactory;
 
-/**
- * @author jasha64
- * @create 2023-07-27
- */
 public class HttpServerInitializer extends ChannelInitializer<SocketChannel>
 {
     private final SslContext sslCtx;

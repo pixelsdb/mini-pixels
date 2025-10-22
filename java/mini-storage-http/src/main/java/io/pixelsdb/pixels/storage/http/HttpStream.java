@@ -48,8 +48,7 @@ public final class HttpStream implements Storage
         }
         if (path.contains("://"))
         {
-            throw new IOException("Path '" + path +
-                    "' already has a different scheme prefix than '" + SchemePrefix + "'.");
+            throw new IOException("Path '" + path + "' already has a different scheme prefix than '" + SchemePrefix + "'.");
         }
         return SchemePrefix + path;
     }

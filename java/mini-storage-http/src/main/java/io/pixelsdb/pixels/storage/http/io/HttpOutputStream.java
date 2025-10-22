@@ -42,23 +42,23 @@ public class HttpOutputStream extends OutputStream
     private boolean open;
 
     /**
-     * The schema of http http.
+     * The schema of http.
      * Default value is http.
      */
     private final String schema = "http";
 
     /**
-     * The host of http http.
+     * The host of http.
      */
     private String host;
 
     /**
-     * The port of http http.
+     * The port of http.
      */
     private int port;
 
     /**
-     * The uri of http http.
+     * The uri of http.
      */
     private String uri;
 

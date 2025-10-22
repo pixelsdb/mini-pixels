@@ -27,10 +27,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-/**
- * @author huasiy
- * @create 2024-11-08
- */
 public class PhysicalHttpStreamWriter implements PhysicalWriter
 {
     private HttpStream httpStream;

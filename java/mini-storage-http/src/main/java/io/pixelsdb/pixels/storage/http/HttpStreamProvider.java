@@ -25,10 +25,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 
-/**
- * @author huasiy
- * @create 2024-11-05
- */
 public class HttpStreamProvider implements StorageProvider
 {
     @Override
