@@ -77,6 +77,16 @@ and create the directory `PIXELS_HOME/logs` where the log files will be written 
 
 > Note: `SRC_BASE` and `PIXELS_HOME` should be separate directories. They contain the source code and the installation of Mini-Pixels, respectively.
 
+Due to Java's strong module encapsulation introduced in JDK 9 and further tightened in later versions (e.g., **JDK 21**), 
+the JVM restricts deep reflective access to internal classes, particularly those related to NIO and direct memory management (in packages like `sun.nio.ch`). 
+This restriction can cause runtime errors or prevent critical native components, such as `DirectIoLib`, from functioning correctly during I/O operations. 
+To resolve this and ensure compatibility with modern JDKs, the following JVM arguments must be added to your runtime or test execution configuration:
+
+```
+--add-opens=java.base/sun.nio.ch=ALL-UNNAMED
+--add-opens=java.base/java.nio=ALL-UNNAMED
+```
+
 ## Lab 1
 
 The first lab is to optimize `mini-storage-http`. This module can be used to transfer data from one process to the other, and it will be used by the
