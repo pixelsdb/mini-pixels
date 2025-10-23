@@ -4,7 +4,7 @@ Mini-Pixels的c++代码库是 [Pixels C++](https://github.com/pixelsdb/pixels/tr
 
 ## 代码结构
 
-Mini-Pixels C++代码主要包含以下主要目录或sub-module：
+Mini-Pixels C++代码包含以下主要目录或sub-module：
 
 - **experiments**: 实验文档。
 - **include**: Mini-Pixels的duckdb extension所需的头文件。
@@ -31,6 +31,3 @@ mini-pixels 目前用于中国人民大学 **实用数据库开发** 课程的�
 
 同学也可以通过提交 **Issue** 和 **Pull Request** 来贡献代码和提出改进建议，帮助完善 mini-pixels。
 
-## 致谢
-
-[duckdb](https://github.com/duckdb/duckdb): 高效的嵌入式查询引擎，mini-pixels 中将 pixels 作为开放文件格式接入duckdb以执行查询。
