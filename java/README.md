@@ -14,7 +14,7 @@ Mini-Pixels Java代码主要包含以下主要module：
 
 ## Prerequisites
 
-We develop and run Mini-Pixels (and also [Pixels](https://github.com/pixelsdb/pixels)) on Ubuntu 22.04. MacOS and other recent version of Linux distributions should also work.
+We develop and run Mini-Pixels (and also [Pixels](https://github.com/pixelsdb/pixels)) on Ubuntu 22.04. MacOS and other recent versions of Linux distributions should also work.
 For MS Windows, you can try if you want, and let us know if you get it work:)
 This document only provides the instructions on Ubuntu.
 
@@ -26,13 +26,13 @@ In ubuntu 22.04, JDK 21 or below can be installed using apt:
 ```bash
 sudo apt install openjdk-21-jdk openjdk-21-jre
 ```
-Replace 21 with other valid JDK version if needed.
+Replace 21 with the other valid JDK version if needed.
 
 Check the java version:
 ```bash
 java -version
 ```
-If other version of JDK is in use, switch to the required JDK:
+If the other version of JDK is in use, switch to the required JDK:
 ```bash
 update-java-alternatives --list
 sudo update-java-alternatives --set /path/to/the/required/jdk
@@ -46,8 +46,8 @@ Check if Maven is using the required JDK:
 ```bash
 mvn --version
 ```
-The printed Java version should be consistent to the Java version printed by java --version.
-Otherwise, check if the JAVA_HOME environment variable is pointing to `/path/to/the/required/jdk`.
+The printed Java version should be consistent to the Java version printed by `java --version`.
+Otherwise, make sure the JAVA_HOME environment variable is pointing to `/path/to/the/required/jdk`.
 
 ## Build Mini-Pixels
 
@@ -68,9 +68,9 @@ Please also find the executable jar(s) of Mini-Pixels：
 
 You can open `SRC_BASE/mini-pixels/java` as a maven project in IntelliJ.
 When the project is fully indexed and the dependencies are successfully downloaded,
-you can build Pixels using the maven plugin (as an alternative of the `mvn` command), run unit tests, and debug the code.
+you can build Mini-Pixels using the maven plugin (as an alternative of the `mvn` command), run unit tests, and debug the code.
 
-To use the maven plugin, run/debug the unit tests, or run/debug the main classes of Pixels in Intellij, set the `PIXELS_HOME` environment
+To use the maven plugin, run/debug the unit tests, or run/debug the main classes of Mini-Pixels in Intellij, set the `PIXELS_HOME` environment
 variable for `Maven`, `Junit`, or `Application` in `Run` -> `Edit Configurations` -> `Edit Configuration Templetes`.
 Ensure that the `PIXELS_HOME` directory exists, copy `mini-common/src/main/resources/pixels.properties` into `PIXELS_HOME/etc`,
 and create the directory `PIXELS_HOME/logs` where the log files will be written to.
@@ -83,11 +83,11 @@ The first lab is to optimize `mini-storage-http`. This module can be used to tra
 shuffle framework in PixelsDB (the cloud lakehouse engine based on Pixels).
 
 The efficiency of `mini-storage-http` significantly impacts the performance of data transfer and data shuffle.
-The current implementation of `mini-storage-http` needs to be optimized in performance, resource efficiency, and comment+code qualify.
+The current implementation of `mini-storage-http` needs to be optimized in terms of performance, resource efficiency, and comment+code qualify.
 For example, it attempts to use Netty (a popular async-network library used in many big-data systems such as Spark) to implement asynchronous data transfer.
 However, it actually transfers data serially.
 
-Please help improve the performance of this component (e.g., by enabling real async transfer, reducing memory copy, etc.) and reduce the CPU and memory consumptions.
+Please help improve the performance (and also the coding quality) of this component (e.g., by enabling real async transfer, reducing memory copy, etc.) and reduce the CPU and memory consumptions.
 
 You can test the performance of this component by running the unit test in `mini-storage-http/src/test/java/io/pixelsdb/pixels/storage/http/TestHttpStream`.
 Ensure you have 8GB free memory on your laptop to run this test.
