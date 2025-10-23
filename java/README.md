@@ -4,7 +4,7 @@ mini-pixels的Java代码库是 [pixels Java](https://github.com/pixelsdb/pixels)
 
 ## 代码结构
 
-Mini-Pixels Java代码主要包含以下主要module：
+Mini-Pixels Java代码包含以下主要module：
 
 - **mini-cli**: Mini-Pixels的命令行工具。
 - **mini-common**: 通用的工具库和基础组件，提供了整个项目中不同模块间的共享功能和结构定义。
@@ -87,7 +87,7 @@ To resolve this and ensure compatibility with modern JDKs, the following JVM arg
 --add-opens=java.base/java.nio=ALL-UNNAMED
 ```
 
-## Lab 1
+## Lab #1
 
 The first lab is to optimize `mini-storage-http`. This module can be used to transfer data from one process to the other, and it will be used by the
 shuffle framework in PixelsDB (the cloud lakehouse engine based on Pixels).
