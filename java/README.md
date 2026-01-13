@@ -103,3 +103,13 @@ You can test the performance of this component by running the unit test in `mini
 Ensure you have 8GB free memory on your laptop to run this test.
 
 We will add a command in `mini-cli` for the performance evaluation shortly after.
+
+## Lab #2
+
+This lab is centered around the implementation and refinement of the **vectorcolumn** data type. In modern database applications, the efficient storage and retrieval of high-dimensional vector data—such as image features and LLM embeddings—has become increasingly critical.
+
+The primary objective is to stabilize and optimize the `vectorcolumn` type within the **mini-pixels** framework. Participants strive to ensure seamless data persistence (Read/Write) and resolve critical bugs in the current implementation. As an advanced challenge, implementing **ANN (Approximate Nearest Neighbor) indexing** is encouraged for extra credit.
+
+**Key Implementation Details:** You should pay close attention to the following core classes: `VectorColumnVector`, `VectorColumnReader`, and `VectorColumnWriter`. While basic test suites are provided for debugging, you are encouraged to develop comprehensive test cases to ensure edge-case stability.
+
+**Submission Requirements:** Please submit a detailed lab report (following the provided [template](./lab2-report-template.md)) and the link to your Git repository.
